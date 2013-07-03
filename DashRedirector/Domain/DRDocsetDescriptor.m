@@ -40,6 +40,14 @@
 #include "DRDocsetDescriptorProperties.inc"
 #undef RETAIN_PROPERTY
 	
+	NSString *keyword = parsedDocset.keyword;
+	if(NSStringIsNullOrEmpty(keyword))
+		keyword = [docsetPref objectForKey:@"platform"];
+	if(NSStringIsNullOrEmpty(keyword))
+		[NSException raise:kDRValueNotFoundException format:@"could not find keyword for docset '%@'", parsedDocset.name];
+	NSCharacterSet *colonSet = [NSCharacterSet characterSetWithCharactersInString:@":"];
+	parsedDocset.keyword = [keyword stringByTrimmingCharactersInSet:colonSet];
+	
 	return parsedDocset;
 }
 
