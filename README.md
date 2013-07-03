@@ -3,7 +3,7 @@ DashRedirector
 
 ### Development
 
-1. Install (CocoaPods)[http://cocoapods.org/].
+1. Install [CocoaPods](http://cocoapods.org/).
 2. Run `pod install` in the repository root.
 3. Open the `DashRedirector.xcworkspace`.
 
