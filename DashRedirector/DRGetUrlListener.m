@@ -7,10 +7,13 @@
 //
 
 #import "DRGetUrlListener.h"
+#import "DRDocsetIndexer.h"
+#import "DRMemberInfo.h"
+#import "DRTypeInfo.h"
 
 
 @interface DRGetUrlListener () {
-	UrlCallback urlCallback;
+	DRDocsetIndexer *docsetIndexer;
 }
 
 @end
@@ -18,10 +21,10 @@
 
 @implementation DRGetUrlListener
 
-- (id) initWithGetUrlCallback:(UrlCallback)callback {
+- (id) initWithDocsetIndexer:(DRDocsetIndexer*)indexer {
 	self = [super init];
 	if(self) {
-		urlCallback = [callback copy];
+		docsetIndexer = [indexer retain];
 	}
 	return self;
 }
@@ -34,20 +37,57 @@
 }
 
 - (void) handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
-	[self makeGetURLCallbackOnMainThread:[NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]]];
+	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
+	
+	// TEMP
+	DRLog(@"url: '%@'  path: '%@'  fragment: '%@'", url, [[url path] stringByDeletingPathExtension],
+		  [[url fragment] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+	
+	NSURL *urlToOpen = [self computeUrlToOpen:url];
+	
+	// TEMP
+	DRLog(@"dashUrl: %@", urlToOpen);
+	
+	LSOpenCFURLRef((CFURLRef)urlToOpen, NULL);
 }
 
-- (void) makeGetURLCallbackOnMainThread:(NSURL*)url {
-	if(![NSThread isMainThread]) {
-		[self performSelectorOnMainThread:@selector(makeGetURLCallbackOnMainThread:) withObject:url waitUntilDone:NO];
-		return;
+- (NSURL*) computeUrlToOpen:(NSURL*)requestUrl {
+	DRTypeInfo *foundTypeInfo = [docsetIndexer searchUrl:requestUrl];
+	
+	// TEMP
+	DRLog(@"%@", foundTypeInfo);
+	
+	if(!foundTypeInfo)
+		return requestUrl;
+	
+	NSString *dashUrl = [self computeDashUrl:requestUrl forType:foundTypeInfo];
+	return [NSURL URLWithString:[dashUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+}
+
+- (NSString*) computeDashUrl:(NSURL*)requestUrl forType:(DRTypeInfo*)type {
+	NSString *fragment = [[requestUrl fragment] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	if(!NSStringIsNullOrEmpty(fragment)) {
+		DRMemberInfo *foundMemberInfo = [type.members match:^BOOL(DRMemberInfo *member) {
+			return [member.anchor isEqualToString:fragment];
+		}];
+		
+		if(foundMemberInfo)
+			return DashUrlForMemberInType(foundMemberInfo, type);
 	}
 	
-	urlCallback(url);
+	return DashUrlForType(type);
+}
+
+static inline NSString* DashUrlForType(DRTypeInfo *type) {
+	return [NSString stringWithFormat:@"dash://%@:%@", type.docsetDescriptor.keyword, type.name];
+}
+
+static inline NSString* DashUrlForMemberInType(DRMemberInfo *member, DRTypeInfo *type) {
+	return [NSString stringWithFormat:@"dash://%@:%@ %@", type.docsetDescriptor.keyword, type.name, member.name];
 }
 
 - (void) dealloc {
-	[urlCallback release];
+	[docsetIndexer release];
 	
 	[super dealloc];
 }

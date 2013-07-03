@@ -11,3 +11,4 @@
 #define kDRUnimplementedMethodException @"DRUnimplementedMethodException"
 
 #define kDRConflictingValueException @"DRConflictingValueException"
+#define kDRValueNotFoundException @"DRValueNotFoundException"

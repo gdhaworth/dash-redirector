@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		424A5CA38B344BF89D953C73 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF3783327ED493D857F9138 /* libPods.a */; };
+		BE19423C82AA47BCBB66B039 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0184E953BA4307B80A58FA /* libPods.a */; };
 		BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D0178373A500CF6C24 /* DRMemberInfo.m */; };
 		BF0423D31783740D00CF6C24 /* DRMemberInfoProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */; };
 		BF0CE0B0178334F90057375F /* DRDocsetDescriptorProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0CE0AF178334F90057375F /* DRDocsetDescriptorProperties.inc */; };
@@ -26,14 +26,13 @@
 		BF44A156177E2DCF0066EE06 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF44A155177E2DCF0066EE06 /* Cocoa.framework */; };
 		BF44A160177E2DCF0066EE06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF44A15E177E2DCF0066EE06 /* InfoPlist.strings */; };
 		BF44A162177E2DCF0066EE06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A161177E2DCF0066EE06 /* main.m */; };
-		BF44A166177E2DCF0066EE06 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BF44A164177E2DCF0066EE06 /* Credits.rtf */; };
 		BF44A169177E2DCF0066EE06 /* DRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A168177E2DCF0066EE06 /* DRAppDelegate.m */; };
 		BF44A174177E2DD00066EE06 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF44A173177E2DD00066EE06 /* SenTestingKit.framework */; };
 		BF44A175177E2DD00066EE06 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF44A155177E2DCF0066EE06 /* Cocoa.framework */; };
 		BF44A17D177E2DD00066EE06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF44A17B177E2DD00066EE06 /* InfoPlist.strings */; };
 		BF44A180177E2DD00066EE06 /* DashRedirectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */; };
+		BF6B1BD61783F84700CBEDA5 /* DRGetUrlListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BD51783F84700CBEDA5 /* DRGetUrlListener.m */; };
 		BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */; };
-		BFB904FD177E4F27000AAB18 /* DRGetUrlListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB904FC177E4F27000AAB18 /* DRGetUrlListener.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4DF3783327ED493D857F9138 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0184E953BA4307B80A58FA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71E65B0617747D48996A34F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BF0423CF178373A500CF6C24 /* DRMemberInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRMemberInfo.h; path = Domain/DRMemberInfo.h; sourceTree = "<group>"; };
 		BF0423D0178373A500CF6C24 /* DRMemberInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRMemberInfo.m; path = Domain/DRMemberInfo.m; sourceTree = "<group>"; };
 		BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = DRMemberInfoProperties.inc; path = Domain/DRMemberInfoProperties.inc; sourceTree = "<group>"; };
@@ -86,7 +86,6 @@
 		BF44A15F177E2DCF0066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF44A161177E2DCF0066EE06 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BF44A163177E2DCF0066EE06 /* DashRedirector-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashRedirector-Prefix.pch"; sourceTree = "<group>"; };
-		BF44A165177E2DCF0066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BF44A167177E2DCF0066EE06 /* DRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRAppDelegate.h; sourceTree = "<group>"; };
 		BF44A168177E2DCF0066EE06 /* DRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRAppDelegate.m; sourceTree = "<group>"; };
 		BF44A172177E2DD00066EE06 /* DashRedirectorTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashRedirectorTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,10 +94,10 @@
 		BF44A17C177E2DD00066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF44A17E177E2DD00066EE06 /* DashRedirectorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashRedirectorTests.h; sourceTree = "<group>"; };
 		BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashRedirectorTests.m; sourceTree = "<group>"; };
+		BF6B1BD31783F18C00CBEDA5 /* NSStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStrings.h; sourceTree = "<group>"; };
+		BF6B1BD41783F84700CBEDA5 /* DRGetUrlListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRGetUrlListener.h; sourceTree = "<group>"; };
+		BF6B1BD51783F84700CBEDA5 /* DRGetUrlListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRGetUrlListener.m; sourceTree = "<group>"; };
 		BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
-		BFB904FB177E4F27000AAB18 /* DRGetUrlListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRGetUrlListener.h; sourceTree = "<group>"; };
-		BFB904FC177E4F27000AAB18 /* DRGetUrlListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRGetUrlListener.m; sourceTree = "<group>"; };
-		DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +107,7 @@
 			files = (
 				BF44A156177E2DCF0066EE06 /* Cocoa.framework in Frameworks */,
 				BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */,
-				424A5CA38B344BF89D953C73 /* libPods.a in Frameworks */,
+				BE19423C82AA47BCBB66B039 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +185,7 @@
 				BF44A178177E2DD00066EE06 /* DashRedirectorTests */,
 				BF44A154177E2DCF0066EE06 /* Frameworks */,
 				BF44A153177E2DCF0066EE06 /* Products */,
-				DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */,
+				B71E65B0617747D48996A34F /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,7 +205,7 @@
 				BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */,
 				BF44A173177E2DD00066EE06 /* SenTestingKit.framework */,
 				BF44A157177E2DCF0066EE06 /* Other Frameworks */,
-				4DF3783327ED493D857F9138 /* libPods.a */,
+				4E0184E953BA4307B80A58FA /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,14 +225,13 @@
 			children = (
 				BF44A167177E2DCF0066EE06 /* DRAppDelegate.h */,
 				BF44A168177E2DCF0066EE06 /* DRAppDelegate.m */,
-				BFB904FB177E4F27000AAB18 /* DRGetUrlListener.h */,
-				BFB904FC177E4F27000AAB18 /* DRGetUrlListener.m */,
+				BF6B1BD41783F84700CBEDA5 /* DRGetUrlListener.h */,
+				BF6B1BD51783F84700CBEDA5 /* DRGetUrlListener.m */,
 				BF3B09F51782086D0016F845 /* DRDocsetIndexer.h */,
 				BF3B09F61782086D0016F845 /* DRDocsetIndexer.m */,
 				BF3B09FE178220EB0016F845 /* Domain */,
 				BF3B09E31781EF550016F845 /* Tasks */,
 				BF3B0A1017823D9C0016F845 /* Data Structures */,
-				BF3B09E71781F1B80016F845 /* DRExceptions.h */,
 				BF44A15C177E2DCF0066EE06 /* Supporting Files */,
 			);
 			path = DashRedirector;
@@ -242,11 +240,12 @@
 		BF44A15C177E2DCF0066EE06 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF3B09E71781F1B80016F845 /* DRExceptions.h */,
+				BF6B1BD31783F18C00CBEDA5 /* NSStrings.h */,
 				BF44A15D177E2DCF0066EE06 /* DashRedirector-Info.plist */,
 				BF44A15E177E2DCF0066EE06 /* InfoPlist.strings */,
 				BF44A161177E2DCF0066EE06 /* main.m */,
 				BF44A163177E2DCF0066EE06 /* DashRedirector-Prefix.pch */,
-				BF44A164177E2DCF0066EE06 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -277,11 +276,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF44A183177E2DD00066EE06 /* Build configuration list for PBXNativeTarget "DashRedirector" */;
 			buildPhases = (
-				51BB68A4A9074914BF6714C6 /* Check Pods Manifest.lock */,
+				BA1D629711C041DABBD217EF /* Check Pods Manifest.lock */,
 				BF44A14E177E2DCF0066EE06 /* Sources */,
 				BF44A14F177E2DCF0066EE06 /* Frameworks */,
 				BF44A150177E2DCF0066EE06 /* Resources */,
-				58144CDF3BB64F41ABF10083 /* Copy Pods Resources */,
+				EF40F4FF177B45E490DA170E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -345,7 +344,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF44A160177E2DCF0066EE06 /* InfoPlist.strings in Resources */,
-				BF44A166177E2DCF0066EE06 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +358,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		51BB68A4A9074914BF6714C6 /* Check Pods Manifest.lock */ = {
+		BA1D629711C041DABBD217EF /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -373,20 +371,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-		};
-		58144CDF3BB64F41ABF10083 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 		};
 		BF44A170177E2DD00066EE06 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -401,6 +385,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		EF40F4FF177B45E490DA170E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -410,7 +408,6 @@
 			files = (
 				BF44A162177E2DCF0066EE06 /* main.m in Sources */,
 				BF44A169177E2DCF0066EE06 /* DRAppDelegate.m in Sources */,
-				BFB904FD177E4F27000AAB18 /* DRGetUrlListener.m in Sources */,
 				BF3B09E61781EF880016F845 /* DRReadDashPreferencesTask.m in Sources */,
 				BF3B09F71782086D0016F845 /* DRDocsetIndexer.m in Sources */,
 				BF3B0A01178221080016F845 /* DRDocsetDescriptor.m in Sources */,
@@ -426,6 +423,7 @@
 				BF0CE0B217833EF00057375F /* DRTypeInfoProperties.inc in Sources */,
 				BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */,
 				BF0423D31783740D00CF6C24 /* DRMemberInfoProperties.inc in Sources */,
+				BF6B1BD61783F84700CBEDA5 /* DRGetUrlListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,14 +452,6 @@
 				BF44A15F177E2DCF0066EE06 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		BF44A164177E2DCF0066EE06 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BF44A165177E2DCF0066EE06 /* en */,
-			);
-			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 		BF44A17B177E2DD00066EE06 /* InfoPlist.strings */ = {
@@ -534,12 +524,13 @@
 		};
 		BF44A184177E2DD00066EE06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */;
+			baseConfigurationReference = B71E65B0617747D48996A34F /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
 				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -547,12 +538,13 @@
 		};
 		BF44A185177E2DD00066EE06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */;
+			baseConfigurationReference = B71E65B0617747D48996A34F /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
 				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

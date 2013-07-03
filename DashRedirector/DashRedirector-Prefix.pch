@@ -4,6 +4,9 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
+	#import <BlocksKit/BlocksKit.h>
+
+	#import "NSStrings.h"
 
 	#define DRLogLine NSLog(@"%s", __PRETTY_FUNCTION__)
 	#define DRLog(...) NSLog(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])

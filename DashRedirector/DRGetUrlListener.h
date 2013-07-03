@@ -9,12 +9,16 @@
 #import <Foundation/Foundation.h>
 
 
+@class DRDocsetIndexer;
+
+
 typedef void(^UrlCallback)(NSURL*);
 
 
 @interface DRGetUrlListener : NSObject
 
-- (id) initWithGetUrlCallback:(UrlCallback)callback;
+- (id) initWithDocsetIndexer:(DRDocsetIndexer*)indexer;
+
 - (void) registerAsEventHandler;
 
 @end

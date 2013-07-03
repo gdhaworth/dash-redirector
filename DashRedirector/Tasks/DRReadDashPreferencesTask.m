@@ -26,10 +26,9 @@
 	NSDictionary *dashPrefs = [DRReadDashPreferencesTask readDashPreferences];
 	NSArray *docsetsPrefs = [dashPrefs objectForKey:@"docsets"];
 	
-	NSMutableArray *parsedDocsets = [[NSMutableArray alloc] initWithCapacity:[docsetsPrefs count]];
-	for(NSDictionary *docsetPref in docsetsPrefs)
-		[parsedDocsets addObject:[DRDocsetDescriptor parseDocset:docsetPref]];
-	return parsedDocsets;
+	return [docsetsPrefs map:^id(NSDictionary *docsetPref) {
+		return [DRDocsetDescriptor parseDocset:docsetPref];
+	}];
 }
 
 + (NSDictionary*) readDashPreferences {
