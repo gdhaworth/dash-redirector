@@ -145,7 +145,8 @@
 	NSMutableArray *results = [NSMutableArray array];
 	while([resultSet next]) {
 		id rowResult = callback();
-		[results addObject:rowResult];
+		if(rowResult)
+			[results addObject:rowResult];
 	}
 	return results;
 }

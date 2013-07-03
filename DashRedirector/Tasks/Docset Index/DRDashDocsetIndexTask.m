@@ -9,12 +9,16 @@
 #import "DRDashDocsetIndexTask.h"
 #import "FMDatabase.h"
 #import "NSMutableDictionary+DRTreeNode.h"
+#import "DRExceptions.h"
 
 
-#warning TODO: check type list is complete
-#define kTypeSelectQuery @"SELECT name, path FROM searchIndex WHERE type IN ('Class', 'Interface', 'Notation', 'Enum', 'Exception', 'Error')"
+#define kTypeSelectQuery @"SELECT name, path FROM searchIndex WHERE type IN ('Class', 'Enum', 'Error', 'Exception', 'Interface', 'Notation', 'Type')"
+#define kMemberSelectQuery @"SELECT name, path FROM searchIndex WHERE type IN ('Attribute', 'Constant', 'Constructor', 'Field', 'Function', 'Method', 'Property', 'Variable')"
 #warning TODO: use
 #define kPackageSelectQuery @"SELECT name, path FROM searchIndex WHERE type = 'Package'"
+
+#define kNameColumn @"name"
+#define kPathColumn @"path"
 
 
 @implementation DRDashDocsetIndexTask
@@ -27,7 +31,40 @@
 - (NSArray*) readTypes {
 	return [self openDatabase:self.docsetDescriptor.sqliteIndexPath callback:^id(FMDatabase *db) {
 		FMResultSet *resultSet = [db executeQuery:kTypeSelectQuery];
-		return [self mapTypeInfoResultSet:resultSet nameColumn:@"name" pathColumn:@"path" callback:NULL];
+		NSArray *types = [self mapTypeInfoResultSet:resultSet nameColumn:kNameColumn pathColumn:kPathColumn callback:NULL];
+		
+		NSDictionary *pathsToTypes = [self indexPathsToTypes:types];
+		[self readMembersIntoTypeInfo:db andPathToTypeIndex:pathsToTypes];
+		return types;
+	}];
+}
+
+- (NSDictionary*) indexPathsToTypes:(NSArray*)types {
+	NSMutableDictionary *index = [NSMutableDictionary dictionaryWithCapacity:[types count]];
+	for(DRTypeInfo *type in types)
+		[index setObject:type forKey:type.path];
+	return index;
+}
+
+- (void) readMembersIntoTypeInfo:(FMDatabase*)database andPathToTypeIndex:(NSDictionary*)pathsToTypes {
+	FMResultSet *memberResultSet = [database executeQuery:kMemberSelectQuery];
+	[self collectResults:memberResultSet rowCallback:^id {
+		NSString *name = [memberResultSet stringForColumn:kNameColumn];
+		NSString *pathWithFragment = [memberResultSet stringForColumn:kPathColumn];
+		
+		NSURL *memberRelativeUrl = [NSURL URLWithString:pathWithFragment];
+		NSString *path = memberRelativeUrl.path;
+		NSString *anchor = [memberRelativeUrl.fragment stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		DRTypeInfo *typeInfo = [pathsToTypes objectForKey:path];
+		if(!typeInfo) {
+			DRLog(@"WARN - Unable to find typeInfo for member '%@' at '%@', parsed path: '%@'", name, pathWithFragment, path);
+			return nil;
+		}
+		
+		DRMemberInfo *memberInfo = [DRMemberInfo memberInfoWithName:name andAnchor:anchor];
+		[typeInfo addMember:memberInfo];
+		return nil;
 	}];
 }
 

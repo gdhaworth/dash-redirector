@@ -26,6 +26,7 @@
 
 - (id) openDatabase:(NSString*)path callback:(id(^)(FMDatabase*))callback;
 
+- (NSArray*) collectResults:(FMResultSet*)resultSet rowCallback:(id(^)(void))callback;
 - (NSArray*) mapTypeInfoResultSet:(FMResultSet*)resultSet
 					   nameColumn:(NSString*)nameColumn
 					   pathColumn:(NSString*)pathColumn

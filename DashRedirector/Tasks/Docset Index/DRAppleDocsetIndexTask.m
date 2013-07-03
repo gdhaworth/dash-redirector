@@ -11,7 +11,7 @@
 #import "NSMutableDictionary+DRTreeNode.h"
 
 
-#warning TODO: check type list is complete
+#warning TODO: check type/member list is complete
 #define kTypeSelectQuery @"SELECT fp.ZPATH, t.ZTOKENNAME, fp.Z_PK AS FILE_ID FROM ZFILEPATH fp INNER JOIN ZTOKENMETAINFORMATION tmi ON fp.Z_PK = tmi.ZFILE INNER JOIN ZTOKEN t ON tmi.ZTOKEN = t.Z_PK INNER JOIN ZTOKENTYPE tt ON t.ZTOKENTYPE = tt.Z_PK WHERE tt.ZTYPENAME IN ('cl', 'Interface', 'Enum', 'Exception', 'Error')"
 #define kMemberSelectQuery @"SELECT t.ZTOKENNAME, tmi.ZANCHOR FROM ZTOKEN t INNER JOIN ZTOKENMETAINFORMATION tmi ON t.Z_PK = tmi.ZTOKEN INNER JOIN ZTOKENTYPE tt ON t.ZTOKENTYPE = tt.Z_PK WHERE tt.ZTYPENAME IN ('instm', 'intfm', 'Constructor', 'clm', 'Field') AND tmi.ZANCHOR IS NOT NULL AND tmi.ZANCHOR <> '' AND tmi.ZFILE = ?"
 #warning TODO: package
