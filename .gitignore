@@ -1,0 +1,4 @@
+DerivedData
+*.xcworkspace
+Pods
+Podfile.lock

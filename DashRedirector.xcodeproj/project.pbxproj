@@ -1,0 +1,624 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		424A5CA38B344BF89D953C73 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DF3783327ED493D857F9138 /* libPods.a */; };
+		BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D0178373A500CF6C24 /* DRMemberInfo.m */; };
+		BF0423D31783740D00CF6C24 /* DRMemberInfoProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */; };
+		BF0CE0B0178334F90057375F /* DRDocsetDescriptorProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0CE0AF178334F90057375F /* DRDocsetDescriptorProperties.inc */; };
+		BF0CE0B217833EF00057375F /* DRTypeInfoProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0CE0B117833EF00057375F /* DRTypeInfoProperties.inc */; };
+		BF28A5F717826F4F0025FAC3 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */; };
+		BF28A5F817826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */; };
+		BF28A5FC178270590025FAC3 /* DRLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5FB178270590025FAC3 /* DRLeaf.m */; };
+		BF28A5FF17828AE70025FAC3 /* NSDictionary+DRTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5FE17828AE70025FAC3 /* NSDictionary+DRTreeNode.m */; };
+		BF28A60817829C550025FAC3 /* DRDashDocsetIndexTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A60517829C550025FAC3 /* DRDashDocsetIndexTask.m */; };
+		BF28A60917829C550025FAC3 /* DRDocsetIndexTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A60717829C550025FAC3 /* DRDocsetIndexTask.m */; };
+		BF28A60C17829F2C0025FAC3 /* DRAppleDocsetIndexTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A60B17829F2C0025FAC3 /* DRAppleDocsetIndexTask.m */; };
+		BF28A60F1782A8E20025FAC3 /* DRTypeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A60E1782A8E20025FAC3 /* DRTypeInfo.m */; };
+		BF3B09E61781EF880016F845 /* DRReadDashPreferencesTask.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B09E51781EF880016F845 /* DRReadDashPreferencesTask.m */; };
+		BF3B09F71782086D0016F845 /* DRDocsetIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B09F61782086D0016F845 /* DRDocsetIndexer.m */; };
+		BF3B0A01178221080016F845 /* DRDocsetDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B0A00178221080016F845 /* DRDocsetDescriptor.m */; };
+		BF44A156177E2DCF0066EE06 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF44A155177E2DCF0066EE06 /* Cocoa.framework */; };
+		BF44A160177E2DCF0066EE06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF44A15E177E2DCF0066EE06 /* InfoPlist.strings */; };
+		BF44A162177E2DCF0066EE06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A161177E2DCF0066EE06 /* main.m */; };
+		BF44A166177E2DCF0066EE06 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BF44A164177E2DCF0066EE06 /* Credits.rtf */; };
+		BF44A169177E2DCF0066EE06 /* DRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A168177E2DCF0066EE06 /* DRAppDelegate.m */; };
+		BF44A174177E2DD00066EE06 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF44A173177E2DD00066EE06 /* SenTestingKit.framework */; };
+		BF44A175177E2DD00066EE06 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF44A155177E2DCF0066EE06 /* Cocoa.framework */; };
+		BF44A17D177E2DD00066EE06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF44A17B177E2DD00066EE06 /* InfoPlist.strings */; };
+		BF44A180177E2DD00066EE06 /* DashRedirectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */; };
+		BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */; };
+		BFB904FD177E4F27000AAB18 /* DRGetUrlListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB904FC177E4F27000AAB18 /* DRGetUrlListener.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF44A176177E2DD00066EE06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF44A14A177E2DCF0066EE06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF44A151177E2DCF0066EE06;
+			remoteInfo = DashRedirector;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4DF3783327ED493D857F9138 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF0423CF178373A500CF6C24 /* DRMemberInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRMemberInfo.h; path = Domain/DRMemberInfo.h; sourceTree = "<group>"; };
+		BF0423D0178373A500CF6C24 /* DRMemberInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRMemberInfo.m; path = Domain/DRMemberInfo.m; sourceTree = "<group>"; };
+		BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = DRMemberInfoProperties.inc; path = Domain/DRMemberInfoProperties.inc; sourceTree = "<group>"; };
+		BF0CE0AF178334F90057375F /* DRDocsetDescriptorProperties.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DRDocsetDescriptorProperties.inc; path = Domain/DRDocsetDescriptorProperties.inc; sourceTree = "<group>"; };
+		BF0CE0B117833EF00057375F /* DRTypeInfoProperties.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DRTypeInfoProperties.inc; path = Domain/DRTypeInfoProperties.inc; sourceTree = "<group>"; };
+		BF28A5F317826F4F0025FAC3 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Stack.h"; path = "Data Structures/NSMutableArray+Stack.h"; sourceTree = "<group>"; };
+		BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Stack.m"; path = "Data Structures/NSMutableArray+Stack.m"; sourceTree = "<group>"; };
+		BF28A5F517826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+DRTreeNode.h"; path = "Data Structures/NSMutableDictionary+DRTreeNode.h"; sourceTree = "<group>"; };
+		BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+DRTreeNode.m"; path = "Data Structures/NSMutableDictionary+DRTreeNode.m"; sourceTree = "<group>"; };
+		BF28A5F9178270380025FAC3 /* DRTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRTreeNode.h; path = "Data Structures/DRTreeNode.h"; sourceTree = "<group>"; };
+		BF28A5FA178270590025FAC3 /* DRLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRLeaf.h; path = "Data Structures/DRLeaf.h"; sourceTree = "<group>"; };
+		BF28A5FB178270590025FAC3 /* DRLeaf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRLeaf.m; path = "Data Structures/DRLeaf.m"; sourceTree = "<group>"; };
+		BF28A5FD17828AE70025FAC3 /* NSDictionary+DRTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+DRTreeNode.h"; path = "Data Structures/NSDictionary+DRTreeNode.h"; sourceTree = "<group>"; };
+		BF28A5FE17828AE70025FAC3 /* NSDictionary+DRTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+DRTreeNode.m"; path = "Data Structures/NSDictionary+DRTreeNode.m"; sourceTree = "<group>"; };
+		BF28A60417829C550025FAC3 /* DRDashDocsetIndexTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRDashDocsetIndexTask.h; path = "Tasks/Docset Index/DRDashDocsetIndexTask.h"; sourceTree = "<group>"; };
+		BF28A60517829C550025FAC3 /* DRDashDocsetIndexTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRDashDocsetIndexTask.m; path = "Tasks/Docset Index/DRDashDocsetIndexTask.m"; sourceTree = "<group>"; };
+		BF28A60617829C550025FAC3 /* DRDocsetIndexTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRDocsetIndexTask.h; path = "Tasks/Docset Index/DRDocsetIndexTask.h"; sourceTree = "<group>"; };
+		BF28A60717829C550025FAC3 /* DRDocsetIndexTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRDocsetIndexTask.m; path = "Tasks/Docset Index/DRDocsetIndexTask.m"; sourceTree = "<group>"; };
+		BF28A60A17829F2C0025FAC3 /* DRAppleDocsetIndexTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRAppleDocsetIndexTask.h; path = "Tasks/Docset Index/DRAppleDocsetIndexTask.h"; sourceTree = "<group>"; };
+		BF28A60B17829F2C0025FAC3 /* DRAppleDocsetIndexTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRAppleDocsetIndexTask.m; path = "Tasks/Docset Index/DRAppleDocsetIndexTask.m"; sourceTree = "<group>"; };
+		BF28A60D1782A8E20025FAC3 /* DRTypeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRTypeInfo.h; path = Domain/DRTypeInfo.h; sourceTree = "<group>"; };
+		BF28A60E1782A8E20025FAC3 /* DRTypeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRTypeInfo.m; path = Domain/DRTypeInfo.m; sourceTree = "<group>"; };
+		BF3B09E41781EF880016F845 /* DRReadDashPreferencesTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRReadDashPreferencesTask.h; path = Tasks/DRReadDashPreferencesTask.h; sourceTree = "<group>"; };
+		BF3B09E51781EF880016F845 /* DRReadDashPreferencesTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRReadDashPreferencesTask.m; path = Tasks/DRReadDashPreferencesTask.m; sourceTree = "<group>"; };
+		BF3B09E71781F1B80016F845 /* DRExceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRExceptions.h; sourceTree = "<group>"; };
+		BF3B09F51782086D0016F845 /* DRDocsetIndexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRDocsetIndexer.h; sourceTree = "<group>"; };
+		BF3B09F61782086D0016F845 /* DRDocsetIndexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRDocsetIndexer.m; sourceTree = "<group>"; };
+		BF3B09FF178221080016F845 /* DRDocsetDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRDocsetDescriptor.h; path = Domain/DRDocsetDescriptor.h; sourceTree = "<group>"; };
+		BF3B0A00178221080016F845 /* DRDocsetDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRDocsetDescriptor.m; path = Domain/DRDocsetDescriptor.m; sourceTree = "<group>"; };
+		BF44A152177E2DCF0066EE06 /* DashRedirector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DashRedirector.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF44A155177E2DCF0066EE06 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BF44A158177E2DCF0066EE06 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		BF44A159177E2DCF0066EE06 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BF44A15A177E2DCF0066EE06 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BF44A15D177E2DCF0066EE06 /* DashRedirector-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DashRedirector-Info.plist"; sourceTree = "<group>"; };
+		BF44A15F177E2DCF0066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BF44A161177E2DCF0066EE06 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BF44A163177E2DCF0066EE06 /* DashRedirector-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashRedirector-Prefix.pch"; sourceTree = "<group>"; };
+		BF44A165177E2DCF0066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		BF44A167177E2DCF0066EE06 /* DRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRAppDelegate.h; sourceTree = "<group>"; };
+		BF44A168177E2DCF0066EE06 /* DRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRAppDelegate.m; sourceTree = "<group>"; };
+		BF44A172177E2DD00066EE06 /* DashRedirectorTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashRedirectorTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF44A173177E2DD00066EE06 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		BF44A17A177E2DD00066EE06 /* DashRedirectorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DashRedirectorTests-Info.plist"; sourceTree = "<group>"; };
+		BF44A17C177E2DD00066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BF44A17E177E2DD00066EE06 /* DashRedirectorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashRedirectorTests.h; sourceTree = "<group>"; };
+		BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashRedirectorTests.m; sourceTree = "<group>"; };
+		BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		BFB904FB177E4F27000AAB18 /* DRGetUrlListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRGetUrlListener.h; sourceTree = "<group>"; };
+		BFB904FC177E4F27000AAB18 /* DRGetUrlListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRGetUrlListener.m; sourceTree = "<group>"; };
+		DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF44A14F177E2DCF0066EE06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44A156177E2DCF0066EE06 /* Cocoa.framework in Frameworks */,
+				BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */,
+				424A5CA38B344BF89D953C73 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF44A16E177E2DD00066EE06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44A174177E2DD00066EE06 /* SenTestingKit.framework in Frameworks */,
+				BF44A175177E2DD00066EE06 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BF28A60317829C260025FAC3 /* Docset Index */ = {
+			isa = PBXGroup;
+			children = (
+				BF28A60617829C550025FAC3 /* DRDocsetIndexTask.h */,
+				BF28A60717829C550025FAC3 /* DRDocsetIndexTask.m */,
+				BF28A60417829C550025FAC3 /* DRDashDocsetIndexTask.h */,
+				BF28A60517829C550025FAC3 /* DRDashDocsetIndexTask.m */,
+				BF28A60A17829F2C0025FAC3 /* DRAppleDocsetIndexTask.h */,
+				BF28A60B17829F2C0025FAC3 /* DRAppleDocsetIndexTask.m */,
+			);
+			name = "Docset Index";
+			sourceTree = "<group>";
+		};
+		BF3B09E31781EF550016F845 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				BF3B09E41781EF880016F845 /* DRReadDashPreferencesTask.h */,
+				BF3B09E51781EF880016F845 /* DRReadDashPreferencesTask.m */,
+				BF28A60317829C260025FAC3 /* Docset Index */,
+			);
+			name = Tasks;
+			sourceTree = "<group>";
+		};
+		BF3B09FE178220EB0016F845 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				BF0CE0AF178334F90057375F /* DRDocsetDescriptorProperties.inc */,
+				BF3B09FF178221080016F845 /* DRDocsetDescriptor.h */,
+				BF3B0A00178221080016F845 /* DRDocsetDescriptor.m */,
+				BF0CE0B117833EF00057375F /* DRTypeInfoProperties.inc */,
+				BF28A60D1782A8E20025FAC3 /* DRTypeInfo.h */,
+				BF28A60E1782A8E20025FAC3 /* DRTypeInfo.m */,
+				BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */,
+				BF0423CF178373A500CF6C24 /* DRMemberInfo.h */,
+				BF0423D0178373A500CF6C24 /* DRMemberInfo.m */,
+			);
+			name = Domain;
+			sourceTree = "<group>";
+		};
+		BF3B0A1017823D9C0016F845 /* Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				BF28A5F9178270380025FAC3 /* DRTreeNode.h */,
+				BF28A5FD17828AE70025FAC3 /* NSDictionary+DRTreeNode.h */,
+				BF28A5FE17828AE70025FAC3 /* NSDictionary+DRTreeNode.m */,
+				BF28A5F517826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.h */,
+				BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */,
+				BF28A5FA178270590025FAC3 /* DRLeaf.h */,
+				BF28A5FB178270590025FAC3 /* DRLeaf.m */,
+				BF28A5F317826F4F0025FAC3 /* NSMutableArray+Stack.h */,
+				BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */,
+			);
+			name = "Data Structures";
+			sourceTree = "<group>";
+		};
+		BF44A149177E2DCF0066EE06 = {
+			isa = PBXGroup;
+			children = (
+				BF44A15B177E2DCF0066EE06 /* DashRedirector */,
+				BF44A178177E2DD00066EE06 /* DashRedirectorTests */,
+				BF44A154177E2DCF0066EE06 /* Frameworks */,
+				BF44A153177E2DCF0066EE06 /* Products */,
+				DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		BF44A153177E2DCF0066EE06 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A152177E2DCF0066EE06 /* DashRedirector.app */,
+				BF44A172177E2DD00066EE06 /* DashRedirectorTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BF44A154177E2DCF0066EE06 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A155177E2DCF0066EE06 /* Cocoa.framework */,
+				BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */,
+				BF44A173177E2DD00066EE06 /* SenTestingKit.framework */,
+				BF44A157177E2DCF0066EE06 /* Other Frameworks */,
+				4DF3783327ED493D857F9138 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF44A157177E2DCF0066EE06 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A158177E2DCF0066EE06 /* AppKit.framework */,
+				BF44A159177E2DCF0066EE06 /* CoreData.framework */,
+				BF44A15A177E2DCF0066EE06 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		BF44A15B177E2DCF0066EE06 /* DashRedirector */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A167177E2DCF0066EE06 /* DRAppDelegate.h */,
+				BF44A168177E2DCF0066EE06 /* DRAppDelegate.m */,
+				BFB904FB177E4F27000AAB18 /* DRGetUrlListener.h */,
+				BFB904FC177E4F27000AAB18 /* DRGetUrlListener.m */,
+				BF3B09F51782086D0016F845 /* DRDocsetIndexer.h */,
+				BF3B09F61782086D0016F845 /* DRDocsetIndexer.m */,
+				BF3B09FE178220EB0016F845 /* Domain */,
+				BF3B09E31781EF550016F845 /* Tasks */,
+				BF3B0A1017823D9C0016F845 /* Data Structures */,
+				BF3B09E71781F1B80016F845 /* DRExceptions.h */,
+				BF44A15C177E2DCF0066EE06 /* Supporting Files */,
+			);
+			path = DashRedirector;
+			sourceTree = "<group>";
+		};
+		BF44A15C177E2DCF0066EE06 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A15D177E2DCF0066EE06 /* DashRedirector-Info.plist */,
+				BF44A15E177E2DCF0066EE06 /* InfoPlist.strings */,
+				BF44A161177E2DCF0066EE06 /* main.m */,
+				BF44A163177E2DCF0066EE06 /* DashRedirector-Prefix.pch */,
+				BF44A164177E2DCF0066EE06 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF44A178177E2DD00066EE06 /* DashRedirectorTests */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A17E177E2DD00066EE06 /* DashRedirectorTests.h */,
+				BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */,
+				BF44A179177E2DD00066EE06 /* Supporting Files */,
+			);
+			path = DashRedirectorTests;
+			sourceTree = "<group>";
+		};
+		BF44A179177E2DD00066EE06 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BF44A17A177E2DD00066EE06 /* DashRedirectorTests-Info.plist */,
+				BF44A17B177E2DD00066EE06 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BF44A151177E2DCF0066EE06 /* DashRedirector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF44A183177E2DD00066EE06 /* Build configuration list for PBXNativeTarget "DashRedirector" */;
+			buildPhases = (
+				51BB68A4A9074914BF6714C6 /* Check Pods Manifest.lock */,
+				BF44A14E177E2DCF0066EE06 /* Sources */,
+				BF44A14F177E2DCF0066EE06 /* Frameworks */,
+				BF44A150177E2DCF0066EE06 /* Resources */,
+				58144CDF3BB64F41ABF10083 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DashRedirector;
+			productName = DashRedirector;
+			productReference = BF44A152177E2DCF0066EE06 /* DashRedirector.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BF44A171177E2DD00066EE06 /* DashRedirectorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF44A186177E2DD00066EE06 /* Build configuration list for PBXNativeTarget "DashRedirectorTests" */;
+			buildPhases = (
+				BF44A16D177E2DD00066EE06 /* Sources */,
+				BF44A16E177E2DD00066EE06 /* Frameworks */,
+				BF44A16F177E2DD00066EE06 /* Resources */,
+				BF44A170177E2DD00066EE06 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF44A177177E2DD00066EE06 /* PBXTargetDependency */,
+			);
+			name = DashRedirectorTests;
+			productName = DashRedirectorTests;
+			productReference = BF44A172177E2DD00066EE06 /* DashRedirectorTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BF44A14A177E2DCF0066EE06 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DR;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Graham Haworth";
+			};
+			buildConfigurationList = BF44A14D177E2DCF0066EE06 /* Build configuration list for PBXProject "DashRedirector" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BF44A149177E2DCF0066EE06;
+			productRefGroup = BF44A153177E2DCF0066EE06 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BF44A151177E2DCF0066EE06 /* DashRedirector */,
+				BF44A171177E2DD00066EE06 /* DashRedirectorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BF44A150177E2DCF0066EE06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44A160177E2DCF0066EE06 /* InfoPlist.strings in Resources */,
+				BF44A166177E2DCF0066EE06 /* Credits.rtf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF44A16F177E2DD00066EE06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44A17D177E2DD00066EE06 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		51BB68A4A9074914BF6714C6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+		58144CDF3BB64F41ABF10083 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		BF44A170177E2DD00066EE06 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BF44A14E177E2DCF0066EE06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44A162177E2DCF0066EE06 /* main.m in Sources */,
+				BF44A169177E2DCF0066EE06 /* DRAppDelegate.m in Sources */,
+				BFB904FD177E4F27000AAB18 /* DRGetUrlListener.m in Sources */,
+				BF3B09E61781EF880016F845 /* DRReadDashPreferencesTask.m in Sources */,
+				BF3B09F71782086D0016F845 /* DRDocsetIndexer.m in Sources */,
+				BF3B0A01178221080016F845 /* DRDocsetDescriptor.m in Sources */,
+				BF28A5F717826F4F0025FAC3 /* NSMutableArray+Stack.m in Sources */,
+				BF28A5F817826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m in Sources */,
+				BF28A5FC178270590025FAC3 /* DRLeaf.m in Sources */,
+				BF28A5FF17828AE70025FAC3 /* NSDictionary+DRTreeNode.m in Sources */,
+				BF28A60817829C550025FAC3 /* DRDashDocsetIndexTask.m in Sources */,
+				BF28A60917829C550025FAC3 /* DRDocsetIndexTask.m in Sources */,
+				BF28A60C17829F2C0025FAC3 /* DRAppleDocsetIndexTask.m in Sources */,
+				BF28A60F1782A8E20025FAC3 /* DRTypeInfo.m in Sources */,
+				BF0CE0B0178334F90057375F /* DRDocsetDescriptorProperties.inc in Sources */,
+				BF0CE0B217833EF00057375F /* DRTypeInfoProperties.inc in Sources */,
+				BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */,
+				BF0423D31783740D00CF6C24 /* DRMemberInfoProperties.inc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF44A16D177E2DD00066EE06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF44A180177E2DD00066EE06 /* DashRedirectorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF44A177177E2DD00066EE06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF44A151177E2DCF0066EE06 /* DashRedirector */;
+			targetProxy = BF44A176177E2DD00066EE06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BF44A15E177E2DCF0066EE06 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF44A15F177E2DCF0066EE06 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BF44A164177E2DCF0066EE06 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF44A165177E2DCF0066EE06 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		BF44A17B177E2DD00066EE06 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF44A17C177E2DD00066EE06 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BF44A181177E2DD00066EE06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BF44A182177E2DD00066EE06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BF44A184177E2DD00066EE06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
+				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BF44A185177E2DD00066EE06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBB03D89B24541E5AEEE2F25 /* Pods.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
+				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		BF44A187177E2DD00066EE06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DashRedirector.app/Contents/MacOS/DashRedirector";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
+				INFOPLIST_FILE = "DashRedirectorTests/DashRedirectorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		BF44A188177E2DD00066EE06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DashRedirector.app/Contents/MacOS/DashRedirector";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
+				INFOPLIST_FILE = "DashRedirectorTests/DashRedirectorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BF44A14D177E2DCF0066EE06 /* Build configuration list for PBXProject "DashRedirector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF44A181177E2DD00066EE06 /* Debug */,
+				BF44A182177E2DD00066EE06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF44A183177E2DD00066EE06 /* Build configuration list for PBXNativeTarget "DashRedirector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF44A184177E2DD00066EE06 /* Debug */,
+				BF44A185177E2DD00066EE06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF44A186177E2DD00066EE06 /* Build configuration list for PBXNativeTarget "DashRedirectorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF44A187177E2DD00066EE06 /* Debug */,
+				BF44A188177E2DD00066EE06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BF44A14A177E2DCF0066EE06 /* Project object */;
+}

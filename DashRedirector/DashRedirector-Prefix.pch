@@ -1,0 +1,10 @@
+//
+// Prefix header for all source files of the 'DashRedirector' target in the 'DashRedirector' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+
+	#define DRLogLine NSLog(@"%s", __PRETTY_FUNCTION__)
+	#define DRLog(...) NSLog(@"%s: %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+#endif

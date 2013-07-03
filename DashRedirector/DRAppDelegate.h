@@ -1,0 +1,20 @@
+//
+//  DRAppDelegate.h
+//  DashRedirector
+//
+//  Created by Graham Haworth on 6/28/13.
+//  Copyright (c) 2013 Graham Haworth. All rights reserved.
+//
+
+#import <Cocoa/Cocoa.h>
+
+
+@class DRDocsetIndexer;
+
+
+@interface DRAppDelegate : NSObject <NSApplicationDelegate>
+
+@property (nonatomic, readonly) NSOperationQueue *workQueue;
+@property (nonatomic, readonly) DRDocsetIndexer *docsetIndexer;
+
+@end
