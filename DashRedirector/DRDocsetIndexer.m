@@ -7,18 +7,25 @@
 //
 
 #import "DRDocsetIndexer.h"
+
 #import "DRDocsetDescriptor.h"
 #import "DRTypeInfo.h"
+
 #import "DRReadDashPreferencesTask.h"
 #import "DRDashDocsetIndexTask.h"
 #import "DRAppleDocsetIndexTask.h"
+#import "DRFileSystemEventListener.h"
+
 #import "NSDictionary+DRTreeNode.h"
 #import "NSMutableDictionary+DRTreeNode.h"
-#import "DRExceptions.h"
 
 
 @interface DRDocsetIndexer () {
 	NSOperationQueue *workQueue;
+	
+	volatile int indexing;
+	
+	DRFileSystemEventListener *fileSystemListener;
 }
 
 @property (atomic, retain) NSDictionary *indexResults;
@@ -36,16 +43,25 @@
 	if(self) {
 		workQueue = [queue retain];
 		self.indexFinish = [[[NSCondition alloc] init] autorelease];
+		
+		indexing = false;
+		
+		fileSystemListener = [[DRFileSystemEventListener alloc] init];
 	}
 	return self;
 }
 
 - (void) startIndex {
-	LOG_LINE();
-	
-	[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {
-		[self indexParsedDashDocsets:docsetDescriptors];
-	}]];
+	bool shouldStart = OSAtomicCompareAndSwapIntBarrier(false, true, &indexing);
+	if(shouldStart) {
+		LOG_INFO(@"Starting indexing...");
+		
+		[fileSystemListener setDashPreferencesPath:[DRReadDashPreferencesTask dashPreferencesPath]];
+		[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {
+			[fileSystemListener setDocsetDescriptors:docsetDescriptors];
+			[self indexParsedDashDocsets:docsetDescriptors];
+		}]];
+	}
 }
 
 - (void) indexParsedDashDocsets:(NSArray*)docsetDescriptors {
@@ -91,15 +107,18 @@
 	[condition lock];
 	self.indexResults = mergedResults;
 	self.indexFinish = nil;
+	OSAtomicCompareAndSwapIntBarrier(false, true, &indexing);
 	[condition signal];
 	[condition unlock];
 	
+#if DEBUG
 	__block int memberCount = 0;
 	[self.indexResults visitLeaves:^(DRTypeInfo *typeInfo) {
 		memberCount += [typeInfo.members count];
 	}];
 	
 	LOG_INFO(@"Done indexing, found: %ld classes, %ld members", (long)[self.indexResults deepCount], (long)memberCount);
+#endif
 }
 
 - (DRTypeInfo*) searchUrl:(NSURL*)url {
@@ -124,6 +143,7 @@
 
 - (void) dealloc {
 	[workQueue release];
+	[fileSystemListener release];
 	
 	self.indexFinish = nil;
 	self.indexResults = nil;

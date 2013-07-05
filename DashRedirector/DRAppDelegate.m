@@ -23,7 +23,7 @@
 
 @implementation DRAppDelegate
 
-@synthesize workQueue, docsetIndexer;
+@synthesize workQueue, docsetIndexer, preferencesWindowController;
 
 
 #pragma mark - Application Lifecycle Callbacks
@@ -62,6 +62,8 @@
 	[workQueue release];
 	[docsetIndexer release];
 	[getUrlListener release];
+	
+	self.preferencesWindowController = nil;
 	
     [super dealloc];
 }

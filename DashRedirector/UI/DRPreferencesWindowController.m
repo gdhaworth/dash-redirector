@@ -7,6 +7,7 @@
 //
 
 #import "DRPreferencesWindowController.h"
+#import "DRAppDelegate.h"
 
 
 @implementation DRPreferencesWindowController
@@ -20,6 +21,12 @@
 											 selector:@selector(userDefaultsChanged:)
 												 name:NSUserDefaultsDidChangeNotification
 											   object:nil];
+}
+
+- (void) windowDidLoad {
+	[super windowDidLoad];
+	
+	[self.window setExcludedFromWindowsMenu:YES];
 }
 
 - (void) userDefaultsChanged:(NSNotification*)notification {

@@ -32,8 +32,12 @@
 }
 
 + (NSDictionary*) readDashPreferences {
+	return [NSDictionary dictionaryWithContentsOfFile:[DRReadDashPreferencesTask dashPreferencesPath]];
+}
+
++ (NSString*) dashPreferencesPath {
 	NSArray *pathComponents = @[ NSHomeDirectory(), @"Library/Preferences", kDashPreferencesFile ];
-	return [NSDictionary dictionaryWithContentsOfFile:[NSString pathWithComponents:pathComponents]];
+	return [NSString pathWithComponents:pathComponents];
 }
 
 @end

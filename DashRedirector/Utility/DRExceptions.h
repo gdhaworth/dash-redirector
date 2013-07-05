@@ -12,3 +12,5 @@
 
 #define kDRConflictingValueException @"DRConflictingValueException"
 #define kDRValueNotFoundException @"DRValueNotFoundException"
+
+#define kDROperationFailedException @"DROperationFailedException"

@@ -33,6 +33,11 @@
 		BF6B1BE8178663AD00CBEDA5 /* MainApplication.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF6B1BE7178663AD00CBEDA5 /* MainApplication.xib */; };
 		BF6B1BEA1786642B00CBEDA5 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF6B1BE91786642B00CBEDA5 /* Preferences.xib */; };
 		BF6B1BED1786680F00CBEDA5 /* DRPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */; };
+		BF6B1BF11786A5B300CBEDA5 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF6B1BEF1786A59D00CBEDA5 /* CoreServices.framework */; };
+		BF6B1BF81786B25A00CBEDA5 /* DRFileSystemEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BF71786B25A00CBEDA5 /* DRFileSystemEventListener.m */; };
+		BF6B1BFB1786B26D00CBEDA5 /* DREventRunLoopThread.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BFA1786B26D00CBEDA5 /* DREventRunLoopThread.m */; };
+		BF6B1BFF1786DC6C00CBEDA5 /* DRFileState.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BFE1786DC6C00CBEDA5 /* DRFileState.m */; };
+		BF6B1C031786E17C00CBEDA5 /* DRDirectoryState.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1C021786E17C00CBEDA5 /* DRDirectoryState.m */; };
 		BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +111,17 @@
 		BF6B1BEB1786680F00CBEDA5 /* DRPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRPreferencesWindowController.h; path = UI/DRPreferencesWindowController.h; sourceTree = "<group>"; };
 		BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRPreferencesWindowController.m; path = UI/DRPreferencesWindowController.m; sourceTree = "<group>"; };
 		BF6B1BEE1786909600CBEDA5 /* DRThreads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DRThreads.h; path = Utility/DRThreads.h; sourceTree = "<group>"; };
+		BF6B1BEF1786A59D00CBEDA5 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		BF6B1BF61786B25A00CBEDA5 /* DRFileSystemEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRFileSystemEventListener.h; path = "Tasks/File System Listener/DRFileSystemEventListener.h"; sourceTree = "<group>"; };
+		BF6B1BF71786B25A00CBEDA5 /* DRFileSystemEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRFileSystemEventListener.m; path = "Tasks/File System Listener/DRFileSystemEventListener.m"; sourceTree = "<group>"; };
+		BF6B1BF91786B26D00CBEDA5 /* DREventRunLoopThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DREventRunLoopThread.h; path = "Tasks/File System Listener/DREventRunLoopThread.h"; sourceTree = "<group>"; };
+		BF6B1BFA1786B26D00CBEDA5 /* DREventRunLoopThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DREventRunLoopThread.m; path = "Tasks/File System Listener/DREventRunLoopThread.m"; sourceTree = "<group>"; };
+		BF6B1BFC1786DC4C00CBEDA5 /* DRPathState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DRPathState.h; path = "Tasks/File System Listener/DRPathState.h"; sourceTree = "<group>"; };
+		BF6B1BFD1786DC6C00CBEDA5 /* DRFileState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRFileState.h; path = "Tasks/File System Listener/DRFileState.h"; sourceTree = "<group>"; };
+		BF6B1BFE1786DC6C00CBEDA5 /* DRFileState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRFileState.m; path = "Tasks/File System Listener/DRFileState.m"; sourceTree = "<group>"; };
+		BF6B1C001786DE2000CBEDA5 /* DRFileSystemEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DRFileSystemEvent.h; path = "Tasks/File System Listener/DRFileSystemEvent.h"; sourceTree = "<group>"; };
+		BF6B1C011786E17C00CBEDA5 /* DRDirectoryState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRDirectoryState.h; path = "Tasks/File System Listener/DRDirectoryState.h"; sourceTree = "<group>"; };
+		BF6B1C021786E17C00CBEDA5 /* DRDirectoryState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRDirectoryState.m; path = "Tasks/File System Listener/DRDirectoryState.m"; sourceTree = "<group>"; };
 		BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -116,6 +132,7 @@
 			files = (
 				BF44A156177E2DCF0066EE06 /* Cocoa.framework in Frameworks */,
 				BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */,
+				BF6B1BF11786A5B300CBEDA5 /* CoreServices.framework in Frameworks */,
 				BE19423C82AA47BCBB66B039 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +168,7 @@
 				BF3B09E41781EF880016F845 /* DRReadDashPreferencesTask.h */,
 				BF3B09E51781EF880016F845 /* DRReadDashPreferencesTask.m */,
 				BF28A60317829C260025FAC3 /* Docset Index */,
+				BF6B1BF51786B22700CBEDA5 /* File System Listener */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -212,6 +230,7 @@
 			children = (
 				BF44A155177E2DCF0066EE06 /* Cocoa.framework */,
 				BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */,
+				BF6B1BEF1786A59D00CBEDA5 /* CoreServices.framework */,
 				BF44A173177E2DD00066EE06 /* SenTestingKit.framework */,
 				BF44A157177E2DCF0066EE06 /* Other Frameworks */,
 				4E0184E953BA4307B80A58FA /* libPods.a */,
@@ -300,6 +319,23 @@
 				BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		BF6B1BF51786B22700CBEDA5 /* File System Listener */ = {
+			isa = PBXGroup;
+			children = (
+				BF6B1BF61786B25A00CBEDA5 /* DRFileSystemEventListener.h */,
+				BF6B1BF71786B25A00CBEDA5 /* DRFileSystemEventListener.m */,
+				BF6B1C001786DE2000CBEDA5 /* DRFileSystemEvent.h */,
+				BF6B1BF91786B26D00CBEDA5 /* DREventRunLoopThread.h */,
+				BF6B1BFA1786B26D00CBEDA5 /* DREventRunLoopThread.m */,
+				BF6B1BFC1786DC4C00CBEDA5 /* DRPathState.h */,
+				BF6B1BFD1786DC6C00CBEDA5 /* DRFileState.h */,
+				BF6B1BFE1786DC6C00CBEDA5 /* DRFileState.m */,
+				BF6B1C011786E17C00CBEDA5 /* DRDirectoryState.h */,
+				BF6B1C021786E17C00CBEDA5 /* DRDirectoryState.m */,
+			);
+			name = "File System Listener";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,6 +494,10 @@
 				BF6B1BD61783F84700CBEDA5 /* DRGetUrlListener.m in Sources */,
 				BF6B1BE617865F2B00CBEDA5 /* DRStatusItemDelegate.m in Sources */,
 				BF6B1BED1786680F00CBEDA5 /* DRPreferencesWindowController.m in Sources */,
+				BF6B1BF81786B25A00CBEDA5 /* DRFileSystemEventListener.m in Sources */,
+				BF6B1BFB1786B26D00CBEDA5 /* DREventRunLoopThread.m in Sources */,
+				BF6B1BFF1786DC6C00CBEDA5 /* DRFileState.m in Sources */,
+				BF6B1C031786E17C00CBEDA5 /* DRDirectoryState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

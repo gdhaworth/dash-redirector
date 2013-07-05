@@ -10,11 +10,14 @@
 
 
 @class DRDocsetIndexer;
+@class DRPreferencesWindowController;
 
 
 @interface DRAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, readonly) NSOperationQueue *workQueue;
 @property (nonatomic, readonly) DRDocsetIndexer *docsetIndexer;
+
+@property (nonatomic, retain) IBOutlet DRPreferencesWindowController *preferencesWindowController;
 
 @end

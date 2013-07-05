@@ -4,10 +4,12 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
+	#import <CoreServices/CoreServices.h>
 	#import <BlocksKit/BlocksKit.h>
 
 	#import "DRLogging.h"
 
 	#import "DRStrings.h"
 	#import "DRThreads.h"
+	#import "DRExceptions.h"
 #endif

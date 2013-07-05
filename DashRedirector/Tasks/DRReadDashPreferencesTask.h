@@ -15,5 +15,6 @@ typedef void(^CompletionCallback)(NSArray*);
 @interface DRReadDashPreferencesTask : NSObject
 
 + (NSOperation*) readDashPreferences:(CompletionCallback)callback;
++ (NSString*) dashPreferencesPath;
 
 @end
