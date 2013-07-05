@@ -40,7 +40,7 @@
 	return self;
 }
 
-- (void) index {
+- (void) startIndex {
 	LOG_LINE();
 	
 	[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {

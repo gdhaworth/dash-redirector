@@ -48,11 +48,13 @@
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2013 Graham Haworth. All rights reserved.</string>
+	<key>NSMainNibFile</key>
+	<string>MainApplication</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>LSBackgroundOnly</key>
-	<true/>
 </dict>
 </plist>

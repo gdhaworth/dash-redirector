@@ -21,4 +21,6 @@ typedef void(^UrlCallback)(NSURL*);
 
 - (void) registerAsEventHandler;
 
+- (void) applicationReadyToLaunchDashUrl;
+
 @end

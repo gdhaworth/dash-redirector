@@ -29,6 +29,10 @@
 		BF44A17D177E2DD00066EE06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF44A17B177E2DD00066EE06 /* InfoPlist.strings */; };
 		BF44A180177E2DD00066EE06 /* DashRedirectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */; };
 		BF6B1BD61783F84700CBEDA5 /* DRGetUrlListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BD51783F84700CBEDA5 /* DRGetUrlListener.m */; };
+		BF6B1BE617865F2B00CBEDA5 /* DRStatusItemDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BE517865F2B00CBEDA5 /* DRStatusItemDelegate.m */; };
+		BF6B1BE8178663AD00CBEDA5 /* MainApplication.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF6B1BE7178663AD00CBEDA5 /* MainApplication.xib */; };
+		BF6B1BEA1786642B00CBEDA5 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF6B1BE91786642B00CBEDA5 /* Preferences.xib */; };
+		BF6B1BED1786680F00CBEDA5 /* DRPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */; };
 		BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +99,13 @@
 		BF6B1BDB178632DB00CBEDA5 /* DRExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRExceptions.h; path = Utility/DRExceptions.h; sourceTree = "<group>"; };
 		BF6B1BDC178632DB00CBEDA5 /* DRLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRLogging.h; path = Utility/DRLogging.h; sourceTree = "<group>"; };
 		BF6B1BDD178632DB00CBEDA5 /* DRStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRStrings.h; path = Utility/DRStrings.h; sourceTree = "<group>"; };
+		BF6B1BE417865F2B00CBEDA5 /* DRStatusItemDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRStatusItemDelegate.h; path = UI/DRStatusItemDelegate.h; sourceTree = "<group>"; };
+		BF6B1BE517865F2B00CBEDA5 /* DRStatusItemDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRStatusItemDelegate.m; path = UI/DRStatusItemDelegate.m; sourceTree = "<group>"; };
+		BF6B1BE7178663AD00CBEDA5 /* MainApplication.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainApplication.xib; path = UI/MainApplication.xib; sourceTree = "<group>"; };
+		BF6B1BE91786642B00CBEDA5 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Preferences.xib; path = UI/Preferences.xib; sourceTree = "<group>"; };
+		BF6B1BEB1786680F00CBEDA5 /* DRPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRPreferencesWindowController.h; path = UI/DRPreferencesWindowController.h; sourceTree = "<group>"; };
+		BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRPreferencesWindowController.m; path = UI/DRPreferencesWindowController.m; sourceTree = "<group>"; };
+		BF6B1BEE1786909600CBEDA5 /* DRThreads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DRThreads.h; path = Utility/DRThreads.h; sourceTree = "<group>"; };
 		BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -228,6 +239,7 @@
 				BF3B09F51782086D0016F845 /* DRDocsetIndexer.h */,
 				BF3B09F61782086D0016F845 /* DRDocsetIndexer.m */,
 				BF3B09FE178220EB0016F845 /* Domain */,
+				BF6B1BE317865EFE00CBEDA5 /* UI */,
 				BF3B09E31781EF550016F845 /* Tasks */,
 				BF3B0A1017823D9C0016F845 /* Data Structures */,
 				BF6B1BDA178632A300CBEDA5 /* Utility */,
@@ -272,8 +284,22 @@
 				BF6B1BDC178632DB00CBEDA5 /* DRLogging.h */,
 				BF6B1BDB178632DB00CBEDA5 /* DRExceptions.h */,
 				BF6B1BDD178632DB00CBEDA5 /* DRStrings.h */,
+				BF6B1BEE1786909600CBEDA5 /* DRThreads.h */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		BF6B1BE317865EFE00CBEDA5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				BF6B1BE7178663AD00CBEDA5 /* MainApplication.xib */,
+				BF6B1BE417865F2B00CBEDA5 /* DRStatusItemDelegate.h */,
+				BF6B1BE517865F2B00CBEDA5 /* DRStatusItemDelegate.m */,
+				BF6B1BE91786642B00CBEDA5 /* Preferences.xib */,
+				BF6B1BEB1786680F00CBEDA5 /* DRPreferencesWindowController.h */,
+				BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +377,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF44A160177E2DCF0066EE06 /* InfoPlist.strings in Resources */,
+				BF6B1BE8178663AD00CBEDA5 /* MainApplication.xib in Resources */,
+				BF6B1BEA1786642B00CBEDA5 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +456,8 @@
 				BF28A60F1782A8E20025FAC3 /* DRTypeInfo.m in Sources */,
 				BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */,
 				BF6B1BD61783F84700CBEDA5 /* DRGetUrlListener.m in Sources */,
+				BF6B1BE617865F2B00CBEDA5 /* DRStatusItemDelegate.m in Sources */,
+				BF6B1BED1786680F00CBEDA5 /* DRPreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,10 +561,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B71E65B0617747D48996A34F /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
 				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -544,10 +576,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B71E65B0617747D48996A34F /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
 				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

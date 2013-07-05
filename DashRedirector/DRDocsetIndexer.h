@@ -16,7 +16,7 @@
 
 - (id) initWithWorkQueue:(NSOperationQueue*)workQueue;
 
-- (void) index;
+- (void) startIndex;
 - (DRTypeInfo*) searchUrl:(NSURL*)url;
 
 @end

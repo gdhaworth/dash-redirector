@@ -7,13 +7,14 @@
 //
 
 #import "DRAppDelegate.h"
+#import "DRStatusItemDelegate.h"
 #import "DRGetUrlListener.h"
 #import "DRDocsetIndexer.h"
 #import "DRTypeInfo.h"
 #import "DRMemberInfo.h"
 
 
-@interface DRAppDelegate () {
+@interface DRAppDelegate () {	
 	DRGetUrlListener *getUrlListener;
 }
 
@@ -31,11 +32,17 @@
 	[getUrlListener registerAsEventHandler];
 }
 
-- (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void) applicationDidFinishLaunching:(NSNotification *)notification {
 	LOG_LINE();
 	
 #warning TODO: consider moving to applicationWillFinishLaunching so this always exists
-	[docsetIndexer index];
+	[docsetIndexer startIndex];
+}
+
+- (void) applicationDidBecomeActive:(NSNotification*)notification {
+	LOG_LINE();
+	
+	[getUrlListener applicationReadyToLaunchDashUrl];
 }
 
 

@@ -45,9 +45,9 @@ static inline NSString* DRLogLevelText(DRLogLevel level) {
 
 	#define LOG_LINE() LogMarker([NSString stringWithUTF8String:__FUNCTION__])
 
-	#define LOG_MESSAGE(level, format, ...) \
-		LogMessageF(__FILE__, __LINE__, __FUNCTION__, DRLogLevelText(level), level, format, __VA_ARGS__); \
-		NSLog(@"%s:\n%@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, __VA_ARGS__])
+	#define LOG_MESSAGE(level, ...) \
+		LogMessageF(__FILE__, __LINE__, __FUNCTION__, DRLogLevelText(level), level, __VA_ARGS__); \
+		NSLog(@"%s:\n%@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
 #else
 	#define DO_NOTHING do {} while(0)
 

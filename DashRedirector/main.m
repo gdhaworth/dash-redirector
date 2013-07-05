@@ -15,6 +15,5 @@ int main(int argc, char *argv[])
 {
 	LOG_SETUP();
 	
-	[[NSApplication sharedApplication] setDelegate:[[DRAppDelegate alloc] init]];
 	return NSApplicationMain(argc, (const char **)argv);
 }
