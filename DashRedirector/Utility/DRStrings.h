@@ -1,5 +1,5 @@
 //
-//  NSStrings.h
+//  DRStrings.h
 //  DashRedirector
 //
 //  Created by Graham Haworth on 7/3/13.

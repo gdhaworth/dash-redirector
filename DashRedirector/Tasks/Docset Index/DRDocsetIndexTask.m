@@ -63,7 +63,7 @@
 		[pathTree setObject:component forChildSequence:[self cleanAndSplitPathComponents:component.path]];
 	
 //	// TEMP
-//	NSLog(@"\n\npathTree: %@\n%@", self.docsetDescriptor.name, [pathTree description]);
+//	LOG_DEBUG(@"\n\npathTree: %@\n%@", self.docsetDescriptor.name, [pathTree description]);
 	
 	return pathTree;
 }
@@ -76,7 +76,7 @@
 			NSRange subRange = NSMakeRange(1, [pathComponents count] - 1);
 			pathComponents = [pathComponents subarrayWithRange:subRange];
 		} else {
-			DRLog(@"WARN - pathPrefixComponent '%@' did not match firstPathComponent '%@' for path '%@'",
+			LOG_WARN(@"pathPrefixComponent '%@' did not match firstPathComponent '%@' for path '%@'",
 				  pathPrefixComponent, firstPathComponent, path);
 			break;
 		}
@@ -91,7 +91,7 @@
 	FMDatabase *database = [FMDatabase databaseWithPath:path];
 	if(!database) {
 #warning TODO: handle error
-		DRLog(@"failed create FMDatabase for path: %@", path);
+		LOG_ERROR(@"failed create FMDatabase for path: %@", path);
 		return nil;
 	}
 	
@@ -100,7 +100,7 @@
 		[database release];
 		
 #warning TODO: handle error
-		DRLog(@"failed to open database at path: %@", path);
+		LOG_ERROR(@"failed to open database at path: %@", path);
 		return nil;
 	}
 	

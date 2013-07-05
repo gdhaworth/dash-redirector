@@ -32,7 +32,7 @@
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
-	DRLogLine;
+	LOG_LINE();
 	
 #warning TODO: consider moving to applicationWillFinishLaunching so this always exists
 	[docsetIndexer index];

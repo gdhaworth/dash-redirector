@@ -40,13 +40,13 @@
 	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
 	
 	// TEMP
-	DRLog(@"url: '%@'  path: '%@'  fragment: '%@'", url, [[url path] stringByDeletingPathExtension],
+	LOG_DEBUG(@"url: '%@'  path: '%@'  fragment: '%@'", url, [[url path] stringByDeletingPathExtension],
 		  [[url fragment] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
 	
 	NSURL *urlToOpen = [self computeUrlToOpen:url];
 	
 	// TEMP
-	DRLog(@"dashUrl: %@", urlToOpen);
+	LOG_DEBUG(@"dashUrl: %@", urlToOpen);
 	
 	LSOpenCFURLRef((CFURLRef)urlToOpen, NULL);
 }
@@ -55,7 +55,7 @@
 	DRTypeInfo *foundTypeInfo = [docsetIndexer searchUrl:requestUrl];
 	
 	// TEMP
-	DRLog(@"%@", foundTypeInfo);
+	LOG_DEBUG(@"%@", foundTypeInfo);
 	
 	if(!foundTypeInfo)
 		return requestUrl;

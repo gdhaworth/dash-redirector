@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		BE19423C82AA47BCBB66B039 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0184E953BA4307B80A58FA /* libPods.a */; };
 		BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D0178373A500CF6C24 /* DRMemberInfo.m */; };
-		BF0423D31783740D00CF6C24 /* DRMemberInfoProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */; };
-		BF0CE0B0178334F90057375F /* DRDocsetDescriptorProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0CE0AF178334F90057375F /* DRDocsetDescriptorProperties.inc */; };
-		BF0CE0B217833EF00057375F /* DRTypeInfoProperties.inc in Sources */ = {isa = PBXBuildFile; fileRef = BF0CE0B117833EF00057375F /* DRTypeInfoProperties.inc */; };
 		BF28A5F717826F4F0025FAC3 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */; };
 		BF28A5F817826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */; };
 		BF28A5FC178270590025FAC3 /* DRLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5FB178270590025FAC3 /* DRLeaf.m */; };
@@ -72,7 +69,6 @@
 		BF28A60E1782A8E20025FAC3 /* DRTypeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRTypeInfo.m; path = Domain/DRTypeInfo.m; sourceTree = "<group>"; };
 		BF3B09E41781EF880016F845 /* DRReadDashPreferencesTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRReadDashPreferencesTask.h; path = Tasks/DRReadDashPreferencesTask.h; sourceTree = "<group>"; };
 		BF3B09E51781EF880016F845 /* DRReadDashPreferencesTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRReadDashPreferencesTask.m; path = Tasks/DRReadDashPreferencesTask.m; sourceTree = "<group>"; };
-		BF3B09E71781F1B80016F845 /* DRExceptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRExceptions.h; sourceTree = "<group>"; };
 		BF3B09F51782086D0016F845 /* DRDocsetIndexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRDocsetIndexer.h; sourceTree = "<group>"; };
 		BF3B09F61782086D0016F845 /* DRDocsetIndexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRDocsetIndexer.m; sourceTree = "<group>"; };
 		BF3B09FF178221080016F845 /* DRDocsetDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRDocsetDescriptor.h; path = Domain/DRDocsetDescriptor.h; sourceTree = "<group>"; };
@@ -94,9 +90,11 @@
 		BF44A17C177E2DD00066EE06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF44A17E177E2DD00066EE06 /* DashRedirectorTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashRedirectorTests.h; sourceTree = "<group>"; };
 		BF44A17F177E2DD00066EE06 /* DashRedirectorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashRedirectorTests.m; sourceTree = "<group>"; };
-		BF6B1BD31783F18C00CBEDA5 /* NSStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStrings.h; sourceTree = "<group>"; };
 		BF6B1BD41783F84700CBEDA5 /* DRGetUrlListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRGetUrlListener.h; sourceTree = "<group>"; };
 		BF6B1BD51783F84700CBEDA5 /* DRGetUrlListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRGetUrlListener.m; sourceTree = "<group>"; };
+		BF6B1BDB178632DB00CBEDA5 /* DRExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRExceptions.h; path = Utility/DRExceptions.h; sourceTree = "<group>"; };
+		BF6B1BDC178632DB00CBEDA5 /* DRLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRLogging.h; path = Utility/DRLogging.h; sourceTree = "<group>"; };
+		BF6B1BDD178632DB00CBEDA5 /* DRStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRStrings.h; path = Utility/DRStrings.h; sourceTree = "<group>"; };
 		BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -232,6 +230,7 @@
 				BF3B09FE178220EB0016F845 /* Domain */,
 				BF3B09E31781EF550016F845 /* Tasks */,
 				BF3B0A1017823D9C0016F845 /* Data Structures */,
+				BF6B1BDA178632A300CBEDA5 /* Utility */,
 				BF44A15C177E2DCF0066EE06 /* Supporting Files */,
 			);
 			path = DashRedirector;
@@ -240,8 +239,6 @@
 		BF44A15C177E2DCF0066EE06 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BF3B09E71781F1B80016F845 /* DRExceptions.h */,
-				BF6B1BD31783F18C00CBEDA5 /* NSStrings.h */,
 				BF44A15D177E2DCF0066EE06 /* DashRedirector-Info.plist */,
 				BF44A15E177E2DCF0066EE06 /* InfoPlist.strings */,
 				BF44A161177E2DCF0066EE06 /* main.m */,
@@ -267,6 +264,16 @@
 				BF44A17B177E2DD00066EE06 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF6B1BDA178632A300CBEDA5 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BF6B1BDC178632DB00CBEDA5 /* DRLogging.h */,
+				BF6B1BDB178632DB00CBEDA5 /* DRExceptions.h */,
+				BF6B1BDD178632DB00CBEDA5 /* DRStrings.h */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,10 +426,7 @@
 				BF28A60917829C550025FAC3 /* DRDocsetIndexTask.m in Sources */,
 				BF28A60C17829F2C0025FAC3 /* DRAppleDocsetIndexTask.m in Sources */,
 				BF28A60F1782A8E20025FAC3 /* DRTypeInfo.m in Sources */,
-				BF0CE0B0178334F90057375F /* DRDocsetDescriptorProperties.inc in Sources */,
-				BF0CE0B217833EF00057375F /* DRTypeInfoProperties.inc in Sources */,
 				BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */,
-				BF0423D31783740D00CF6C24 /* DRMemberInfoProperties.inc in Sources */,
 				BF6B1BD61783F84700CBEDA5 /* DRGetUrlListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,8 +495,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DDEBUG=1";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -517,7 +522,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -530,7 +535,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
 				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -544,7 +548,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DashRedirector/DashRedirector-Prefix.pch";
 				INFOPLIST_FILE = "DashRedirector/DashRedirector-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

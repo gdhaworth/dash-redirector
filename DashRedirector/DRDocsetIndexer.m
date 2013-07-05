@@ -41,7 +41,7 @@
 }
 
 - (void) index {
-	DRLogLine;
+	LOG_LINE();
 	
 	[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {
 		[self indexParsedDashDocsets:docsetDescriptors];
@@ -99,7 +99,7 @@
 		memberCount += [typeInfo.members count];
 	}];
 	
-	DRLog(@"Done indexing, found: %ld classes, %ld members", (long)[self.indexResults deepCount], (long)memberCount);
+	LOG_INFO(@"Done indexing, found: %ld classes, %ld members", (long)[self.indexResults deepCount], (long)memberCount);
 }
 
 - (DRTypeInfo*) searchUrl:(NSURL*)url {

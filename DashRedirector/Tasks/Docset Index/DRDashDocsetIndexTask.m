@@ -58,7 +58,7 @@
 		
 		DRTypeInfo *typeInfo = [pathsToTypes objectForKey:path];
 		if(!typeInfo) {
-			DRLog(@"WARN - Unable to find typeInfo for member '%@' at '%@', parsed path: '%@'", name, pathWithFragment, path);
+			LOG_WARN(@"Unable to find typeInfo for member '%@' at '%@', parsed path: '%@'", name, pathWithFragment, path);
 			return nil;
 		}
 		
