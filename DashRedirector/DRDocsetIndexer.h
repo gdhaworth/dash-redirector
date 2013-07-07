@@ -20,6 +20,7 @@ typedef void(^DRReadDocsetDescriptorTaskCallback)(NSArray*);
 
 - (BOOL) startIndex;
 - (void) startOrQueueIndex;
+- (void) reindexDocsets;
 
 - (DRTypeInfo*) searchUrl:(NSURL*)url;
 

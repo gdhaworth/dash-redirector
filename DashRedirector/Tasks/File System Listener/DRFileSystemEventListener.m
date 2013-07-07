@@ -21,7 +21,7 @@
 	NSObject *pathsLock;
 }
 
-@property (nonatomic, assign) DRDocsetIndexer *docsetIndexer;
+@property (nonatomic, readonly) DRDocsetIndexer *docsetIndexer;
 
 @end
 
@@ -33,7 +33,7 @@
 - (id) initWithDocsetIndexer:(DRDocsetIndexer*)indexer {
 	self = [super init];
 	if(self) {
-		self.docsetIndexer = indexer;
+		docsetIndexer = indexer;
 		
 		eventRunLoopThread = [[DREventRunLoopThread alloc] init];
 		[eventRunLoopThread start];
@@ -45,6 +45,8 @@
 
 - (void) setDashPreferencesPath:(NSString*)path {
 	NSAssert(path, @"path was nil");
+	
+	path = [path stringByStandardizingPath];
 	
 	@synchronized(pathsLock) {
 		if([path isEqualToString:dashPreferencesPath])
@@ -91,7 +93,10 @@
 	[eventRunLoopThread watchPaths:paths withEventCallback:^(DRFileSystemEvent event, id<DRPathState> pathState) {
 		LOG_DEBUG(@"path updated: '%@'", pathState.path);
 		
-		[self.docsetIndexer startOrQueueIndex];
+		if([pathState.path isEqualToString:dashPrefsPathRef])
+			[self.docsetIndexer startOrQueueIndex];
+		else
+			[self.docsetIndexer reindexDocsets];
 	} withReleaseCallback:^{
 		[dashPrefsPathRef release];
 		[docsetPathsRef release];
@@ -109,8 +114,6 @@
 	[pathsLock release];
 	[dashPreferencesPath release];
 	[docsetPaths release];
-	
-	self.docsetIndexer = nil;
 	
 	[super dealloc];
 }

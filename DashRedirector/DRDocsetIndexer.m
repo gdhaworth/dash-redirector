@@ -24,24 +24,25 @@
 	// The following ivar groupings are each guarded by the lock at the end of the group
 	
 	BOOL indexing;
-	BOOL indexQueued;
+	BOOL readAndIndexQueued;
+	BOOL reindexQueued;
 	NSObject *indexStatusLock;
 	
 	NSMutableDictionary *mergedIndexInProgress;
 	NSObject *indexInProgressLock;
 	
-	NSDictionary *indexResults;
 	NSCondition *indexPublishCondition;
 }
 
 @property (atomic, retain) NSSet *mostRecentDocsetDescriptors;
+@property (atomic, retain) NSDictionary *indexResults;
 
 @end
 
 
 @implementation DRDocsetIndexer
 
-@synthesize mostRecentDocsetDescriptors;
+@synthesize mostRecentDocsetDescriptors, indexResults;
 
 - (id) initWithWorkQueue:(NSOperationQueue*)queue {
 	self = [super init];
@@ -53,7 +54,8 @@
 		
 		mergedIndexInProgress = [[NSMutableDictionary alloc] init];
 		indexing = NO;
-		indexQueued = NO;
+		readAndIndexQueued = NO;
+		reindexQueued = NO;
 		
 		fileSystemListener = [[DRFileSystemEventListener alloc] initWithDocsetIndexer:self];
 	}
@@ -71,7 +73,7 @@
 			return;
 		
 		LOG_DEBUG(@"Index already running, queueing another index");
-		indexQueued = YES;
+		readAndIndexQueued = YES;
 	}
 }
 
@@ -83,21 +85,38 @@
 		indexing = YES;
 	}
 	
-	[self submitReadDashPreferencesTask];
+	[self submitReadDashPreferencesTask:NO];
 	return YES;
+}
+
+- (void) reindexDocsets {
+	BOOL start = NO;
+	@synchronized(indexStatusLock) {
+		if(indexing) {
+			LOG_DEBUG(@"Index already running, queueing another re-index");
+			
+			reindexQueued = YES;
+		} else {
+			indexing = YES;
+			start = YES;
+		}
+	}
+	
+	if(start)
+		[self indexDocsets];
 }
 
 
 #pragma mark Internal Indexing Methods
 
-- (void) submitReadDashPreferencesTask {
+- (void) submitReadDashPreferencesTask:(BOOL)forceReindex {
 	LOG_INFO(@"Reading docset descriptions from Dash preferences...");
 	
 	[fileSystemListener setDashPreferencesPath:[DRReadDashPreferencesTask dashPreferencesPath]];
 	
 	[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {
 		NSSet *docsetDescriptorSet = [NSSet setWithArray:docsetDescriptors];
-		if([docsetDescriptorSet isEqualToSet:self.mostRecentDocsetDescriptors]) {
+		if(!forceReindex && [docsetDescriptorSet isEqualToSet:self.mostRecentDocsetDescriptors]) {
 			LOG_DEBUG(@"Finished reading docset descriptions, no changes found");
 			
 			[self finishIndexing];
@@ -121,11 +140,11 @@
 		[self handleIndexCompletion];
 	}];
 	
-	[self queueIndexTasks:handleCompletionOperation];
+	[self submitDocsetIndexTasks:handleCompletionOperation];
 	[workQueue addOperation:handleCompletionOperation];
 }
 
-- (void) queueIndexTasks:(NSOperation*)finishOperation {
+- (void) submitDocsetIndexTasks:(NSOperation*)finishOperation {
 	[self.mostRecentDocsetDescriptors each:^(DRDocsetDescriptor *docsetDescriptor) {
 		DRDocsetIndexTask *task = [self createIndexTask:docsetDescriptor];
 		if(!task)
@@ -175,8 +194,7 @@
 #endif
 	
 	[self doLocked:indexPublishCondition execute:^{
-		[indexResults release];
-		indexResults = [mergedResults retain];
+		self.indexResults = mergedResults;
 		
 		[indexPublishCondition signal];
 	}];
@@ -186,18 +204,30 @@
 
 - (void) finishIndexing {
 	BOOL shouldSubmitReadDashPreferencesTask = NO;
+	BOOL shouldReindex = NO;
 	@synchronized(indexStatusLock) {
-		if(indexQueued) {
-			LOG_DEBUG(@"Indexing task was queued, running again");
+		if(readAndIndexQueued) {
+			LOG_DEBUG(@"Read Dash docset descriptors task was queued, running again");
 			
-			indexQueued = NO;
+			readAndIndexQueued = NO;
 			shouldSubmitReadDashPreferencesTask = YES;
-		} else
+		}
+		
+		if(reindexQueued) {
+			LOG_DEBUG(@"Reindexing task was queued, running again");
+			
+			reindexQueued = NO;
+			shouldReindex = YES;
+		}
+		
+		if(!shouldSubmitReadDashPreferencesTask && !shouldReindex)
 			indexing = NO;
 	}
 	
 	if(shouldSubmitReadDashPreferencesTask)
-		[self submitReadDashPreferencesTask];
+		[self submitReadDashPreferencesTask:shouldReindex];
+	else if(shouldReindex)
+		[self indexDocsets];
 }
 
 
@@ -216,11 +246,11 @@
 - (void) awaitIndexResults {
 	// We don't care that much about the results being stale, the property is atomic
 	// and will never again be nil, so this should be ok.
-	if(indexResults)
+	if(self.indexResults)
 		return;
 	
 	[self doLocked:indexPublishCondition execute:^{
-		while(!indexResults)
+		while(!self.indexResults)
 			[indexPublishCondition wait];
 	}];
 }
@@ -248,10 +278,10 @@
 	[indexStatusLock release];
 	[indexInProgressLock release];
 	[indexPublishCondition release];
-	[indexResults release];
 	[mergedIndexInProgress release];
 	
 	self.mostRecentDocsetDescriptors = nil;
+	self.indexResults = nil;
 	
 	[super dealloc];
 }
