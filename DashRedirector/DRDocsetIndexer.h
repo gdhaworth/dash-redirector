@@ -12,11 +12,15 @@
 @class DRTypeInfo;
 
 
+typedef void(^DRReadDocsetDescriptorTaskCallback)(NSArray*);
+
 @interface DRDocsetIndexer : NSObject
 
 - (id) initWithWorkQueue:(NSOperationQueue*)workQueue;
 
-- (void) startIndex;
+- (BOOL) startIndex;
+- (void) startOrQueueIndex;
+
 - (DRTypeInfo*) searchUrl:(NSURL*)url;
 
 @end

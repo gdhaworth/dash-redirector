@@ -16,76 +16,131 @@
 #import "DRAppleDocsetIndexTask.h"
 #import "DRFileSystemEventListener.h"
 
-#import "NSDictionary+DRTreeNode.h"
-#import "NSMutableDictionary+DRTreeNode.h"
-
 
 @interface DRDocsetIndexer () {
 	NSOperationQueue *workQueue;
-	
-	volatile int indexing;
-	
 	DRFileSystemEventListener *fileSystemListener;
+	
+	// The following ivar groupings are each guarded by the lock at the end of the group
+	
+	BOOL indexing;
+	BOOL indexQueued;
+	NSObject *indexStatusLock;
+	
+	NSMutableDictionary *mergedIndexInProgress;
+	NSObject *indexInProgressLock;
+	
+	NSDictionary *indexResults;
+	NSCondition *indexPublishCondition;
 }
 
-@property (atomic, retain) NSDictionary *indexResults;
-@property (atomic, retain) NSCondition *indexFinish;
+@property (atomic, retain) NSSet *mostRecentDocsetDescriptors;
 
 @end
 
 
 @implementation DRDocsetIndexer
 
-@synthesize indexResults, indexFinish;
+@synthesize mostRecentDocsetDescriptors;
 
 - (id) initWithWorkQueue:(NSOperationQueue*)queue {
 	self = [super init];
 	if(self) {
 		workQueue = [queue retain];
-		self.indexFinish = [[[NSCondition alloc] init] autorelease];
+		indexStatusLock = [[NSObject alloc] init];
+		indexInProgressLock = [[NSObject alloc] init];
+		indexPublishCondition = [[NSCondition alloc] init];
 		
-		indexing = false;
+		mergedIndexInProgress = [[NSMutableDictionary alloc] init];
+		indexing = NO;
+		indexQueued = NO;
 		
-		fileSystemListener = [[DRFileSystemEventListener alloc] init];
+		fileSystemListener = [[DRFileSystemEventListener alloc] initWithDocsetIndexer:self];
 	}
 	return self;
 }
 
-- (void) startIndex {
-	bool shouldStart = OSAtomicCompareAndSwapIntBarrier(false, true, &indexing);
-	if(shouldStart) {
-		LOG_INFO(@"Starting indexing...");
+#pragma mark - Indexing Methods
+
+#pragma mark Public Indexing Methods
+
+- (void) startOrQueueIndex {
+	@synchronized(indexStatusLock) {
+		BOOL started = [self startIndex];
+		if(started)
+			return;
 		
-		[fileSystemListener setDashPreferencesPath:[DRReadDashPreferencesTask dashPreferencesPath]];
-		[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {
-			[fileSystemListener setDocsetDescriptors:docsetDescriptors];
-			[self indexParsedDashDocsets:docsetDescriptors];
-		}]];
+		LOG_DEBUG(@"Index already running, queueing another index");
+		indexQueued = YES;
 	}
 }
 
-- (void) indexParsedDashDocsets:(NSArray*)docsetDescriptors {
-	NSArray *docsetIndexTasks = [self queueIndexTasks:docsetDescriptors];
+- (BOOL) startIndex {
+	@synchronized(indexStatusLock) {
+		if(indexing)
+			return NO;
+		
+		indexing = YES;
+	}
 	
-	NSOperation *handleResultsOperation = [[NSInvocationOperation alloc] initWithTarget:self
-																			   selector:@selector(handleIndexResults:)
-																				 object:docsetIndexTasks];
-	for(DRDocsetIndexTask *task in docsetIndexTasks)
-		[handleResultsOperation addDependency:task.operation];
-	[workQueue addOperation:handleResultsOperation];
+	[self submitReadDashPreferencesTask];
+	return YES;
 }
 
-- (NSArray*) queueIndexTasks:(NSArray*)docsetDescriptors {
-	NSMutableArray *docsetIndexTasks = [[NSMutableArray alloc] initWithCapacity:[docsetDescriptors count]];
-	for(DRDocsetDescriptor *docsetDescriptor in docsetDescriptors) {
+
+#pragma mark Internal Indexing Methods
+
+- (void) submitReadDashPreferencesTask {
+	LOG_INFO(@"Reading docset descriptions from Dash preferences...");
+	
+	[fileSystemListener setDashPreferencesPath:[DRReadDashPreferencesTask dashPreferencesPath]];
+	
+	[workQueue addOperation:[DRReadDashPreferencesTask readDashPreferences:^(NSArray *docsetDescriptors) {
+		NSSet *docsetDescriptorSet = [NSSet setWithArray:docsetDescriptors];
+		if([docsetDescriptorSet isEqualToSet:self.mostRecentDocsetDescriptors]) {
+			LOG_DEBUG(@"Finished reading docset descriptions, no changes found");
+			
+			[self finishIndexing];
+			return;
+		}
+		
+		self.mostRecentDocsetDescriptors = docsetDescriptorSet;
+		[fileSystemListener setDocsetDescriptors:self.mostRecentDocsetDescriptors];
+		[self indexDocsets];
+	}]];
+}
+
+- (void) indexDocsets {
+	LOG_INFO(@"Indexing docsets...");
+	
+	@synchronized(indexInProgressLock) {
+		[mergedIndexInProgress removeAllObjects];
+	}
+	
+	NSOperation *handleCompletionOperation = [NSBlockOperation blockOperationWithBlock:^{
+		[self handleIndexCompletion];
+	}];
+	
+	[self queueIndexTasks:handleCompletionOperation];
+	[workQueue addOperation:handleCompletionOperation];
+}
+
+- (void) queueIndexTasks:(NSOperation*)finishOperation {
+	[self.mostRecentDocsetDescriptors each:^(DRDocsetDescriptor *docsetDescriptor) {
 		DRDocsetIndexTask *task = [self createIndexTask:docsetDescriptor];
 		if(!task)
-			continue;
+			return;
 		
-		[docsetIndexTasks addObject:task];
 		[workQueue addOperation:task.operation];
-	}
-	return docsetIndexTasks;
+		
+		NSOperation *resultOperation = [NSBlockOperation blockOperationWithBlock:^{
+			[self handleIndexResult:task];
+		}];
+		[resultOperation addDependency:task.operation];
+		[workQueue addOperation:resultOperation];
+		
+		[finishOperation addDependency:resultOperation];
+	}];
 }
 
 - (DRDocsetIndexTask*) createIndexTask:(DRDocsetDescriptor*)docsetDescriptor {
@@ -98,43 +153,89 @@
 	return [[[DRAppleDocsetIndexTask alloc] initWithDocsetDescriptor:docsetDescriptor] autorelease];
 }
 
-- (void) handleIndexResults:(NSArray*)tasks {
-	NSMutableDictionary *mergedResults = [NSMutableDictionary dictionary];
-	for(DRDocsetIndexTask *task in tasks)
-		[mergedResults mergeTrees:task.result];
-	
-	NSCondition *condition = self.indexFinish;
-	[condition lock];
-	self.indexResults = mergedResults;
-	self.indexFinish = nil;
-	OSAtomicCompareAndSwapIntBarrier(false, true, &indexing);
-	[condition signal];
-	[condition unlock];
+- (void) handleIndexResult:(DRDocsetIndexTask*)task {
+	@synchronized(indexInProgressLock) {
+		[mergedIndexInProgress mergeTrees:task.result];
+	}
+}
+
+- (void) handleIndexCompletion {
+	NSDictionary *mergedResults;
+	@synchronized(indexInProgressLock) {
+		mergedResults = [NSDictionary dictionaryWithDictionary:mergedIndexInProgress];
+	}
 	
 #if DEBUG
 	__block int memberCount = 0;
-	[self.indexResults visitLeaves:^(DRTypeInfo *typeInfo) {
+	[mergedResults visitLeaves:^(DRTypeInfo *typeInfo) {
 		memberCount += [typeInfo.members count];
 	}];
 	
-	LOG_INFO(@"Done indexing, found: %ld classes, %ld members", (long)[self.indexResults deepCount], (long)memberCount);
+	LOG_INFO(@"Done indexing, found: %ld classes, %ld members", (long)[mergedResults deepCount], (long)memberCount);
 #endif
+	
+	[self doLocked:indexPublishCondition execute:^{
+		[indexResults release];
+		indexResults = [mergedResults retain];
+		
+		[indexPublishCondition signal];
+	}];
+	
+	[self finishIndexing];
 }
 
-- (DRTypeInfo*) searchUrl:(NSURL*)url {
-	// We don't care that much about the results being stale, the property is atomic
-	// and will never again be nil, so this should be ok.
-	NSCondition *condition = self.indexFinish;
-	[condition lock];
-	while(!self.indexResults)
-		[condition wait];
+- (void) finishIndexing {
+	BOOL shouldSubmitReadDashPreferencesTask = NO;
+	@synchronized(indexStatusLock) {
+		if(indexQueued) {
+			LOG_DEBUG(@"Indexing task was queued, running again");
+			
+			indexQueued = NO;
+			shouldSubmitReadDashPreferencesTask = YES;
+		} else
+			indexing = NO;
+	}
 	
-	// As long as we never set self.indexResults to nil we'll have one, so we'll skip using it within the lock.
-	[condition unlock];
+	if(shouldSubmitReadDashPreferencesTask)
+		[self submitReadDashPreferencesTask];
+}
+
+
+#pragma mark - Search Methods
+#pragma mark Public Search Methods
+
+- (DRTypeInfo*) searchUrl:(NSURL*)url {
+	[self awaitIndexResults];
 	
 	NSArray *pathComponents = [[[url path] stringByDeletingPathExtension] pathComponents];
-	return [self.indexResults objectForSequenceRelativeTo:pathComponents];
+	return [indexResults objectForSequenceRelativeTo:pathComponents];
 }
+
+#pragma mark Internal Search Methods
+
+- (void) awaitIndexResults {
+	// We don't care that much about the results being stale, the property is atomic
+	// and will never again be nil, so this should be ok.
+	if(indexResults)
+		return;
+	
+	[self doLocked:indexPublishCondition execute:^{
+		while(!indexResults)
+			[indexPublishCondition wait];
+	}];
+}
+
+
+#pragma mark - Internal Utility methods
+
+- (void) doLocked:(id<NSLocking>)lock execute:(void(^)(void))callback {
+	[lock lock];
+	callback();
+	[lock unlock];
+}
+
+
+#pragma mark Instance Lifecycle Methods
 
 - (id) init {
 	[NSException raise:kDRUnsupportedOperationException format:@"use initWithType:"];
@@ -144,9 +245,13 @@
 - (void) dealloc {
 	[workQueue release];
 	[fileSystemListener release];
+	[indexStatusLock release];
+	[indexInProgressLock release];
+	[indexPublishCondition release];
+	[indexResults release];
+	[mergedIndexInProgress release];
 	
-	self.indexFinish = nil;
-	self.indexResults = nil;
+	self.mostRecentDocsetDescriptors = nil;
 	
 	[super dealloc];
 }

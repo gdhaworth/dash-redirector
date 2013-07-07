@@ -40,6 +40,25 @@
 	[(NSMutableArray*)self.members addObject:member];
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if(![anObject isKindOfClass:[DRTypeInfo class]])
+		return NO;
+	
+	if(![self.docsetDescriptor isEqualTo:((DRTypeInfo*)anObject).docsetDescriptor])
+		return NO;
+	
+	return [self.name isEqualToString:((DRTypeInfo*)anObject).name];
+}
+
+#define kPrime 31
+
+- (NSUInteger) hash {
+	NSUInteger result = 1;
+	result = kPrime * result + [self.docsetDescriptor hash];
+	result = kPrime * result + [self.name hash];
+	return result;
+}
+
 - (NSString*) description {
 	return [NSString stringWithFormat:@"%@[name='%@', path='%@', docsetDescriptor=%@]",
 			[self class], self.name, self.path, self.docsetDescriptor];

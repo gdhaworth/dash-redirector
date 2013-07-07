@@ -74,6 +74,17 @@
 	}
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if(![anObject isKindOfClass:[DRDocsetDescriptor class]])
+		return NO;
+	
+	return [[self.basePath lowercaseString] isEqualToString:[((DRDocsetDescriptor*)anObject).basePath lowercaseString]];
+}
+
+- (NSUInteger) hash {
+	return [[self.basePath lowercaseString] hash];
+}
+
 - (NSString*) description {
 	return [NSString stringWithFormat:@"%@[name='%@', type='%@', sqliteIndexPath='%@', keyword='%@', dashFormat=%d]",
 			[self class], self.name, [DRDocsetDescriptor typeAsString:self.type], self.sqliteIndexPath, self.keyword,

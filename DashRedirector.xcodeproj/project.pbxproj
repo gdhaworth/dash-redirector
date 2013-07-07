@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BE19423C82AA47BCBB66B039 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0184E953BA4307B80A58FA /* libPods.a */; };
 		BF0423D1178373A500CF6C24 /* DRMemberInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0423D0178373A500CF6C24 /* DRMemberInfo.m */; };
-		BF28A5F717826F4F0025FAC3 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */; };
+		BF28A5F717826F4F0025FAC3 /* NSMutableArray+DRStack.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F417826F4F0025FAC3 /* NSMutableArray+DRStack.m */; };
 		BF28A5F817826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */; };
 		BF28A5FC178270590025FAC3 /* DRLeaf.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5FB178270590025FAC3 /* DRLeaf.m */; };
 		BF28A5FF17828AE70025FAC3 /* NSDictionary+DRTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28A5FE17828AE70025FAC3 /* NSDictionary+DRTreeNode.m */; };
@@ -59,8 +59,8 @@
 		BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = DRMemberInfoProperties.inc; path = Domain/DRMemberInfoProperties.inc; sourceTree = "<group>"; };
 		BF0CE0AF178334F90057375F /* DRDocsetDescriptorProperties.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DRDocsetDescriptorProperties.inc; path = Domain/DRDocsetDescriptorProperties.inc; sourceTree = "<group>"; };
 		BF0CE0B117833EF00057375F /* DRTypeInfoProperties.inc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = DRTypeInfoProperties.inc; path = Domain/DRTypeInfoProperties.inc; sourceTree = "<group>"; };
-		BF28A5F317826F4F0025FAC3 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+Stack.h"; path = "Data Structures/NSMutableArray+Stack.h"; sourceTree = "<group>"; };
-		BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+Stack.m"; path = "Data Structures/NSMutableArray+Stack.m"; sourceTree = "<group>"; };
+		BF28A5F317826F4F0025FAC3 /* NSMutableArray+DRStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+DRStack.h"; path = "Data Structures/NSMutableArray+DRStack.h"; sourceTree = "<group>"; };
+		BF28A5F417826F4F0025FAC3 /* NSMutableArray+DRStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+DRStack.m"; path = "Data Structures/NSMutableArray+DRStack.m"; sourceTree = "<group>"; };
 		BF28A5F517826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+DRTreeNode.h"; path = "Data Structures/NSMutableDictionary+DRTreeNode.h"; sourceTree = "<group>"; };
 		BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+DRTreeNode.m"; path = "Data Structures/NSMutableDictionary+DRTreeNode.m"; sourceTree = "<group>"; };
 		BF28A5F9178270380025FAC3 /* DRTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRTreeNode.h; path = "Data Structures/DRTreeNode.h"; sourceTree = "<group>"; };
@@ -199,8 +199,8 @@
 				BF28A5F617826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m */,
 				BF28A5FA178270590025FAC3 /* DRLeaf.h */,
 				BF28A5FB178270590025FAC3 /* DRLeaf.m */,
-				BF28A5F317826F4F0025FAC3 /* NSMutableArray+Stack.h */,
-				BF28A5F417826F4F0025FAC3 /* NSMutableArray+Stack.m */,
+				BF28A5F317826F4F0025FAC3 /* NSMutableArray+DRStack.h */,
+				BF28A5F417826F4F0025FAC3 /* NSMutableArray+DRStack.m */,
 			);
 			name = "Data Structures";
 			sourceTree = "<group>";
@@ -482,7 +482,7 @@
 				BF3B09E61781EF880016F845 /* DRReadDashPreferencesTask.m in Sources */,
 				BF3B09F71782086D0016F845 /* DRDocsetIndexer.m in Sources */,
 				BF3B0A01178221080016F845 /* DRDocsetDescriptor.m in Sources */,
-				BF28A5F717826F4F0025FAC3 /* NSMutableArray+Stack.m in Sources */,
+				BF28A5F717826F4F0025FAC3 /* NSMutableArray+DRStack.m in Sources */,
 				BF28A5F817826F4F0025FAC3 /* NSMutableDictionary+DRTreeNode.m in Sources */,
 				BF28A5FC178270590025FAC3 /* DRLeaf.m in Sources */,
 				BF28A5FF17828AE70025FAC3 /* NSDictionary+DRTreeNode.m in Sources */,

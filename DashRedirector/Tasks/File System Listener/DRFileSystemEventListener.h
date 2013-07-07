@@ -9,9 +9,14 @@
 #import <Foundation/Foundation.h>
 
 
+@class DRDocsetIndexer;
+
+
 @interface DRFileSystemEventListener : NSObject
 
+- (id) initWithDocsetIndexer:(DRDocsetIndexer*)docsetIndexer;
+
 - (void) setDashPreferencesPath:(NSString*)path;
-- (void) setDocsetDescriptors:(NSArray*)docsetDescriptors;
+- (void) setDocsetDescriptors:(NSSet*)docsetDescriptors;
 
 @end

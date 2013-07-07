@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 
 
-@interface NSMutableArray (Stack)
+typedef NSMutableArray DRStack;
+
+
+@interface NSMutableArray (DRStack)
 
 - (id) pop;
+- (void) push:(id)value;
 
 @end

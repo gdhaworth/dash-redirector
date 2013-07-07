@@ -35,7 +35,6 @@
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
 	LOG_LINE();
 	
-#warning TODO: consider moving to applicationWillFinishLaunching so this always exists
 	[docsetIndexer startIndex];
 }
 

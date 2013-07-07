@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Graham Haworth. All rights reserved.
 //
 
-#import "NSMutableArray+Stack.h"
 
-
-@implementation NSMutableArray (Stack)
+@implementation NSMutableArray (DRStack)
 
 - (id) pop {
 #warning TODO: consider throwing exception
@@ -19,6 +17,10 @@
 	id nextValue = [self objectAtIndex:0];
 	[self removeObjectAtIndex:0];
 	return nextValue;
+}
+
+- (void) push:(id)value {
+	[self addObject:value];
 }
 
 @end

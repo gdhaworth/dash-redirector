@@ -31,9 +31,21 @@
 	return memberInfo;
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if(![anObject isKindOfClass:[DRMemberInfo class]])
+		return NO;
+	
+	return [self.anchor isEqualToString:((DRMemberInfo*)anObject).anchor];
+}
+
+#define kPrime 31
+
+- (NSUInteger) hash {
+	return kPrime + [self.anchor hash];
+}
+
 - (NSString*) description {
-	return [NSString stringWithFormat:@"%@[name='%@']",
-			[self class], self.name];
+	return [NSString stringWithFormat:@"%@[name='%@', anchor='%@']", [self class], self.name, self.anchor];
 }
 
 - (void) dealloc {

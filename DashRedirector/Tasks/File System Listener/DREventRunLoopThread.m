@@ -163,6 +163,9 @@ void FileSystemEventCallback(ConstFSEventStreamRef streamRef, void *callbackInfo
 	[runCondition release];
 	[watchedPaths release];
 	[eventCallback release];
+	
+	if(releaseCallback)
+		releaseCallback();
 	[releaseCallback release];
 	
 	[super dealloc];

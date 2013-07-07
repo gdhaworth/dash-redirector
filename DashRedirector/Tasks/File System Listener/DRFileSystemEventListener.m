@@ -7,6 +7,7 @@
 //
 
 #import "DRFileSystemEventListener.h"
+#import "DRDocsetIndexer.h"
 #import "DRDocsetDescriptor.h"
 #import "DREventRunLoopThread.h"
 #import "DRPathState.h"
@@ -15,23 +16,29 @@
 @interface DRFileSystemEventListener () {
 	DREventRunLoopThread *eventRunLoopThread;
 	
-	NSRecursiveLock *pathsLock;
 	NSString *dashPreferencesPath;
 	NSSet *docsetPaths;
+	NSObject *pathsLock;
 }
+
+@property (nonatomic, assign) DRDocsetIndexer *docsetIndexer;
 
 @end
 
 
 @implementation DRFileSystemEventListener
 
-- (id) init {
+@synthesize docsetIndexer;
+
+- (id) initWithDocsetIndexer:(DRDocsetIndexer*)indexer {
 	self = [super init];
 	if(self) {
+		self.docsetIndexer = indexer;
+		
 		eventRunLoopThread = [[DREventRunLoopThread alloc] init];
 		[eventRunLoopThread start];
 		
-		pathsLock = [[NSRecursiveLock alloc] init];
+		pathsLock = [[NSObject alloc] init];
 	}
 	return self;
 }
@@ -39,41 +46,40 @@
 - (void) setDashPreferencesPath:(NSString*)path {
 	NSAssert(path, @"path was nil");
 	
-	[pathsLock lock];
+	@synchronized(pathsLock) {
+		if([path isEqualToString:dashPreferencesPath])
+			return;
+		
+		[dashPreferencesPath release];
+		dashPreferencesPath = [path copy];
+	}
 	
-	if([path isEqualToString:dashPreferencesPath])
-		return;
-	
-	[dashPreferencesPath release];
-	dashPreferencesPath = [path copy];
-	
-	[self pathsUpdated];
-	
-	[pathsLock unlock];
+	[self pathsChanged];
 }
 
-- (void) setDocsetDescriptors:(NSArray*)docsetDescriptors {
-	NSMutableSet *newDocsetPaths = [NSMutableSet setWithCapacity:[docsetDescriptors count]];
-	[docsetDescriptors each:^(DRDocsetDescriptor *docsetDescriptor) {
-		[newDocsetPaths addObject:docsetDescriptor.basePath];
+- (void) setDocsetDescriptors:(NSSet*)descriptors {
+	NSSet *newDocsetPaths = [descriptors map:^NSString*(DRDocsetDescriptor *docsetDescriptor) {
+		return docsetDescriptor.basePath;
 	}];
 	
-	[pathsLock lock];
+	@synchronized(pathsLock) {
+		if([newDocsetPaths isEqualToSet:docsetPaths])
+			return;
+		
+		[docsetPaths release];
+		docsetPaths = [[NSSet alloc] initWithSet:newDocsetPaths];
+	}
 	
-	if([newDocsetPaths isEqualToSet:docsetPaths])
-		return;
-	
-	[docsetPaths release];
-	docsetPaths = [[NSSet alloc] initWithSet:newDocsetPaths];
-	
-	[self pathsUpdated];
-	
-	[pathsLock unlock];
+	[self pathsChanged];
 }
 
-- (void) pathsUpdated {
-	NSString *dashPrefsPathRef = [dashPreferencesPath retain];
-	NSSet *docsetPathsRef = [docsetPaths retain];
+- (void) pathsChanged {
+	NSString *dashPrefsPathRef;
+	NSSet *docsetPathsRef;
+	@synchronized(pathsLock) {
+		dashPrefsPathRef = [dashPreferencesPath retain];
+		docsetPathsRef = [docsetPaths retain];
+	}
 	
 	NSSet *paths;
 	if(docsetPathsRef) {
@@ -83,13 +89,18 @@
 		paths = [NSSet setWithObject:dashPrefsPathRef];
 	
 	[eventRunLoopThread watchPaths:paths withEventCallback:^(DRFileSystemEvent event, id<DRPathState> pathState) {
-		LOG_INFO(@"path updated: '%@'", pathState.path);
+		LOG_DEBUG(@"path updated: '%@'", pathState.path);
 		
-		// TODO
+		[self.docsetIndexer startOrQueueIndex];
 	} withReleaseCallback:^{
 		[dashPrefsPathRef release];
 		[docsetPathsRef release];
 	}];
+}
+
+- (id) init {
+	[NSException raise:kDRUnsupportedOperationException format:@"use initWithDocsetIndexer:"];
+	return nil;
 }
 
 - (void) dealloc {
@@ -98,6 +109,8 @@
 	[pathsLock release];
 	[dashPreferencesPath release];
 	[docsetPaths release];
+	
+	self.docsetIndexer = nil;
 	
 	[super dealloc];
 }

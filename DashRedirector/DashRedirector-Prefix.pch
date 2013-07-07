@@ -12,4 +12,8 @@
 	#import "DRStrings.h"
 	#import "DRThreads.h"
 	#import "DRExceptions.h"
+
+	#import "NSDictionary+DRTreeNode.h"
+	#import "NSMutableDictionary+DRTreeNode.h"
+	#import "NSMutableArray+DRStack.h"
 #endif
