@@ -39,6 +39,9 @@
 		BF6B1BFF1786DC6C00CBEDA5 /* DRFileState.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1BFE1786DC6C00CBEDA5 /* DRFileState.m */; };
 		BF6B1C031786E17C00CBEDA5 /* DRDirectoryState.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6B1C021786E17C00CBEDA5 /* DRDirectoryState.m */; };
 		BFB904FA177E4B74000AAB18 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */; };
+		BFCFCA8C17896BAC0052DEDD /* DRBrowserInfoTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCFCA8B17896BAC0052DEDD /* DRBrowserInfoTasks.m */; };
+		BFCFCA8F17897F080052DEDD /* DRBrowserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCFCA8E17897F080052DEDD /* DRBrowserInfo.m */; };
+		BFE4F3061789CF85005BD224 /* DRLockableClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE4F3051789CF85005BD224 /* DRLockableClipView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +126,13 @@
 		BF6B1C011786E17C00CBEDA5 /* DRDirectoryState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRDirectoryState.h; path = "Tasks/File System Listener/DRDirectoryState.h"; sourceTree = "<group>"; };
 		BF6B1C021786E17C00CBEDA5 /* DRDirectoryState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRDirectoryState.m; path = "Tasks/File System Listener/DRDirectoryState.m"; sourceTree = "<group>"; };
 		BFB904F8177E4B6B000AAB18 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		BFCFCA8A17896BAC0052DEDD /* DRBrowserInfoTasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRBrowserInfoTasks.h; path = Tasks/DRBrowserInfoTasks.h; sourceTree = "<group>"; };
+		BFCFCA8B17896BAC0052DEDD /* DRBrowserInfoTasks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRBrowserInfoTasks.m; path = Tasks/DRBrowserInfoTasks.m; sourceTree = "<group>"; };
+		BFCFCA8D17897F080052DEDD /* DRBrowserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRBrowserInfo.h; path = Domain/DRBrowserInfo.h; sourceTree = "<group>"; };
+		BFCFCA8E17897F080052DEDD /* DRBrowserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRBrowserInfo.m; path = Domain/DRBrowserInfo.m; sourceTree = "<group>"; };
+		BFCFCA9017897F220052DEDD /* DRBrowserInfo.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = DRBrowserInfo.inc; path = Domain/DRBrowserInfo.inc; sourceTree = "<group>"; };
+		BFE4F3041789CF85005BD224 /* DRLockableClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DRLockableClipView.h; path = UI/DRLockableClipView.h; sourceTree = "<group>"; };
+		BFE4F3051789CF85005BD224 /* DRLockableClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DRLockableClipView.m; path = UI/DRLockableClipView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +177,8 @@
 			children = (
 				BF3B09E41781EF880016F845 /* DRReadDashPreferencesTask.h */,
 				BF3B09E51781EF880016F845 /* DRReadDashPreferencesTask.m */,
+				BFCFCA8A17896BAC0052DEDD /* DRBrowserInfoTasks.h */,
+				BFCFCA8B17896BAC0052DEDD /* DRBrowserInfoTasks.m */,
 				BF28A60317829C260025FAC3 /* Docset Index */,
 				BF6B1BF51786B22700CBEDA5 /* File System Listener */,
 			);
@@ -185,6 +197,9 @@
 				BF0423D21783740D00CF6C24 /* DRMemberInfoProperties.inc */,
 				BF0423CF178373A500CF6C24 /* DRMemberInfo.h */,
 				BF0423D0178373A500CF6C24 /* DRMemberInfo.m */,
+				BFCFCA9017897F220052DEDD /* DRBrowserInfo.inc */,
+				BFCFCA8D17897F080052DEDD /* DRBrowserInfo.h */,
+				BFCFCA8E17897F080052DEDD /* DRBrowserInfo.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -317,6 +332,8 @@
 				BF6B1BE91786642B00CBEDA5 /* Preferences.xib */,
 				BF6B1BEB1786680F00CBEDA5 /* DRPreferencesWindowController.h */,
 				BF6B1BEC1786680F00CBEDA5 /* DRPreferencesWindowController.m */,
+				BFE4F3041789CF85005BD224 /* DRLockableClipView.h */,
+				BFE4F3051789CF85005BD224 /* DRLockableClipView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -498,6 +515,9 @@
 				BF6B1BFB1786B26D00CBEDA5 /* DREventRunLoopThread.m in Sources */,
 				BF6B1BFF1786DC6C00CBEDA5 /* DRFileState.m in Sources */,
 				BF6B1C031786E17C00CBEDA5 /* DRDirectoryState.m in Sources */,
+				BFCFCA8C17896BAC0052DEDD /* DRBrowserInfoTasks.m in Sources */,
+				BFCFCA8F17897F080052DEDD /* DRBrowserInfo.m in Sources */,
+				BFE4F3061789CF85005BD224 /* DRLockableClipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
