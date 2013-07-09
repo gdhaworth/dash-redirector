@@ -45,8 +45,13 @@ static inline NSString* DRLogLevelText(DRLogLevel level) {
 							 kLoggerOption_BrowseOnlyLocalDomain | \
 							 kLoggerOption_UseSSL)
 	#define LOG_SETUP() LoggerSetOptions(LoggerGetDefaultLogger(), LOGGER_OPTIONS)
+	#define LOG_FLUSH() LoggerFlush(NULL, NO)
 
-	#define LOG_LINE() LogMarker([NSString stringWithUTF8String:__FUNCTION__])
+	#define LOG_LINE() \
+		do { \
+			LogMarker([NSString stringWithUTF8String:__FUNCTION__]); \
+			NSLog(@"%s", __PRETTY_FUNCTION__); \
+		} while(0)
 
 	#define LOG_MESSAGE(level, ...) \
 		do { \
@@ -58,6 +63,7 @@ static inline NSString* DRLogLevelText(DRLogLevel level) {
 	#define DO_NOTHING do {} while(0)
 
 	#define LOG_SETUP() DO_NOTHING
+	#define LOG_FLUSH() DO_NOTHING
 	#define LOG_LINE() DO_NOTHING
 	#define LOG_MESSAGE(...) DO_NOTHING
 #endif
