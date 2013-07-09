@@ -58,78 +58,6 @@
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSButton" id="582539136">
-							<reference key="NSNextResponder" ref="50395944"/>
-							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{18, 373}, {404, 18}}</string>
-							<reference key="NSSuperview" ref="50395944"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="754408581"/>
-							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="1047583937">
-								<int key="NSCellFlags">-2079850496</int>
-								<int key="NSCellFlags2">268435456</int>
-								<string key="NSContents">Use Dash Redirector as default system browser</string>
-								<object class="NSFont" key="NSSupport" id="598815873">
-									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">13</double>
-									<int key="NSfFlags">1044</int>
-								</object>
-								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="582539136"/>
-								<int key="NSButtonFlags">1211912448</int>
-								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">NSSwitch</string>
-								</object>
-								<object class="NSButtonImageSource" key="NSAlternateImage">
-									<string key="NSImageName">NSSwitch</string>
-								</object>
-								<string key="NSAlternateContents"/>
-								<string key="NSKeyEquivalent"/>
-								<int key="NSPeriodicDelay">200</int>
-								<int key="NSPeriodicInterval">25</int>
-							</object>
-							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-						</object>
-						<object class="NSTextField" id="754408581">
-							<reference key="NSNextResponder" ref="50395944"/>
-							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{29, 353}, {379, 14}}</string>
-							<reference key="NSSuperview" ref="50395944"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
-							<string key="NSReuseIdentifierKey">_NS:1535</string>
-							<bool key="NSEnabled">YES</bool>
-							<object class="NSTextFieldCell" key="NSCell" id="948262462">
-								<int key="NSCellFlags">67108928</int>
-								<int key="NSCellFlags2">306321472</int>
-								<string key="NSContents">This will change the default browser while Dash Redirector is running!</string>
-								<object class="NSFont" key="NSSupport" id="26">
-									<string key="NSName">LucidaGrande</string>
-									<double key="NSSize">11</double>
-									<int key="NSfFlags">3100</int>
-								</object>
-								<string key="NSCellIdentifier">_NS:1535</string>
-								<reference key="NSControlView" ref="754408581"/>
-								<object class="NSColor" key="NSBackgroundColor" id="151654149">
-									<int key="NSColorSpace">6</int>
-									<string key="NSCatalogName">System</string>
-									<string key="NSColorName">controlColor</string>
-									<object class="NSColor" key="NSColor" id="301926967">
-										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
-									</object>
-								</object>
-								<object class="NSColor" key="NSTextColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAwIDAAA</bytes>
-								</object>
-							</object>
-							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-						</object>
 						<object class="NSTextField" id="55974634">
 							<reference key="NSNextResponder" ref="50395944"/>
 							<int key="NSvFlags">266</int>
@@ -143,10 +71,22 @@
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">306189376</int>
 								<string key="NSContents">Dash Redirector's fallback browser:</string>
-								<reference key="NSSupport" ref="598815873"/>
+								<object class="NSFont" key="NSSupport" id="598815873">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">1044</int>
+								</object>
 								<string key="NSCellIdentifier">_NS:1535</string>
 								<reference key="NSControlView" ref="55974634"/>
-								<reference key="NSBackgroundColor" ref="151654149"/>
+								<object class="NSColor" key="NSBackgroundColor" id="151654149">
+									<int key="NSColorSpace">6</int>
+									<string key="NSCatalogName">System</string>
+									<string key="NSColorName">controlColor</string>
+									<object class="NSColor" key="NSColor" id="301926967">
+										<int key="NSColorSpace">3</int>
+										<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+									</object>
+								</object>
 								<object class="NSColor" key="NSTextColor" id="1030954413">
 									<int key="NSColorSpace">6</int>
 									<string key="NSCatalogName">System</string>
@@ -243,6 +183,66 @@
 							<double key="NSMaxMagnification">4</double>
 							<double key="NSMagnification">1</double>
 						</object>
+						<object class="NSButton" id="582539136">
+							<reference key="NSNextResponder" ref="50395944"/>
+							<int key="NSvFlags">266</int>
+							<string key="NSFrame">{{18, 373}, {404, 18}}</string>
+							<reference key="NSSuperview" ref="50395944"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="754408581"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="1047583937">
+								<int key="NSCellFlags">-2079850496</int>
+								<int key="NSCellFlags2">268435456</int>
+								<string key="NSContents">Use Dash Redirector as default system browser</string>
+								<reference key="NSSupport" ref="598815873"/>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="582539136"/>
+								<int key="NSButtonFlags">1211912448</int>
+								<int key="NSButtonFlags2">2</int>
+								<object class="NSCustomResource" key="NSNormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSSwitch</string>
+								</object>
+								<object class="NSButtonImageSource" key="NSAlternateImage">
+									<string key="NSImageName">NSSwitch</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
+						<object class="NSTextField" id="754408581">
+							<reference key="NSNextResponder" ref="50395944"/>
+							<int key="NSvFlags">266</int>
+							<string key="NSFrame">{{29, 353}, {379, 14}}</string>
+							<reference key="NSSuperview" ref="50395944"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="55974634"/>
+							<string key="NSReuseIdentifierKey">_NS:1535</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="948262462">
+								<int key="NSCellFlags">67108928</int>
+								<int key="NSCellFlags2">306321472</int>
+								<string key="NSContents">This will change the default browser while Dash Redirector is running!</string>
+								<object class="NSFont" key="NSSupport" id="26">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">11</double>
+									<int key="NSfFlags">3100</int>
+								</object>
+								<string key="NSCellIdentifier">_NS:1535</string>
+								<reference key="NSControlView" ref="754408581"/>
+								<reference key="NSBackgroundColor" ref="151654149"/>
+								<object class="NSColor" key="NSTextColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAwIDAAA</bytes>
+								</object>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
 					</array>
 					<string key="NSFrameSize">{440, 409}</string>
 					<reference key="NSSuperview"/>
@@ -267,7 +267,7 @@
 			</object>
 			<object class="NSCollectionViewItem" id="376140936"/>
 			<object class="NSView" id="254794295">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSBox" id="1010523285">
@@ -289,8 +289,10 @@
 											<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 											<string>NeXT TIFF v4.0 pasteboard type</string>
 										</set>
-										<string key="NSFrame">{{21, 11}, {72, 72}}</string>
+										<string key="NSFrame">{{21, 20}, {72, 72}}</string>
 										<reference key="NSSuperview" ref="775619524"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="783013913"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSImageCell" key="NSCell" id="1057994928">
@@ -308,9 +310,10 @@
 									<object class="NSTextField" id="783013913">
 										<reference key="NSNextResponder" ref="775619524"/>
 										<int key="NSvFlags">266</int>
-										<string key="NSFrame">{{4, 93}, {107, 17}}</string>
+										<string key="NSFrame">{{4, 2}, {107, 17}}</string>
 										<reference key="NSSuperview" ref="775619524"/>
-										<reference key="NSNextKeyView" ref="92271207"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="323113411">
@@ -326,14 +329,16 @@
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									</object>
 								</array>
-								<string key="NSFrame">{{2, 2}, {115, 115}}</string>
+								<string key="NSFrame">{{2, 2}, {115, 96}}</string>
 								<reference key="NSSuperview" ref="1010523285"/>
-								<reference key="NSNextKeyView" ref="783013913"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="92271207"/>
 								<string key="NSReuseIdentifierKey">_NS:11</string>
 							</object>
 						</array>
-						<string key="NSFrame">{{3, 3}, {119, 119}}</string>
+						<string key="NSFrame">{{3, 2}, {119, 100}}</string>
 						<reference key="NSSuperview" ref="254794295"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="775619524"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSOffsets">{0, 0}</string>
@@ -373,7 +378,9 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrameSize">{125, 125}</string>
+				<string key="NSFrameSize">{125, 104}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1010523285"/>
 			</object>
 			<object class="NSUserDefaultsController" id="698548683">
@@ -663,9 +670,9 @@
 						<int key="objectID">4</int>
 						<reference key="object" ref="50395944"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="582539136"/>
-							<reference ref="36830144"/>
 							<reference ref="754408581"/>
+							<reference ref="36830144"/>
+							<reference ref="582539136"/>
 							<reference ref="55974634"/>
 						</array>
 						<reference key="parent" ref="325841912"/>
@@ -699,8 +706,8 @@
 						<int key="objectID">327</int>
 						<reference key="object" ref="1010523285"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="783013913"/>
 							<reference ref="92271207"/>
+							<reference ref="783013913"/>
 						</array>
 						<reference key="parent" ref="254794295"/>
 					</object>
@@ -841,23 +848,12 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">DRLockableClipView</string>
-					<string key="superclassName">NSClipView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/DRLockableClipView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">DRPreferencesWindowController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="browserArrayController">NSArrayController</string>
 						<string key="dashIsDefaultCheckbox">NSButton</string>
-						<string key="defaultBrowserClipView">DRLockableClipView</string>
-						<string key="defaultBrowserCollectionView">NSCollectionView</string>
 						<string key="defaultBrowserCollectionViewLabel">NSTextField</string>
-						<string key="defaultBrowserComponentsView">NSView</string>
 						<string key="defaultBrowserScrollView">NSScrollView</string>
 						<string key="lastComponentBeforeDefaultBrowserScrollView">NSView</string>
 					</dictionary>
@@ -870,21 +866,9 @@
 							<string key="name">dashIsDefaultCheckbox</string>
 							<string key="candidateClassName">NSButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="defaultBrowserClipView">
-							<string key="name">defaultBrowserClipView</string>
-							<string key="candidateClassName">DRLockableClipView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="defaultBrowserCollectionView">
-							<string key="name">defaultBrowserCollectionView</string>
-							<string key="candidateClassName">NSCollectionView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="defaultBrowserCollectionViewLabel">
 							<string key="name">defaultBrowserCollectionViewLabel</string>
 							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="defaultBrowserComponentsView">
-							<string key="name">defaultBrowserComponentsView</string>
-							<string key="candidateClassName">NSView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="defaultBrowserScrollView">
 							<string key="name">defaultBrowserScrollView</string>
