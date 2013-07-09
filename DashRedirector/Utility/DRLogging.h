@@ -15,7 +15,8 @@ typedef enum {
 	DRLogError = 0,
 	DRLogWarning = 1,
 	DRLogInfo = 2,
-	DRLogDebug = 3
+	DRLogDebug = 3,
+	DRLogTrace = 4
 } DRLogLevel;
 
 static inline NSString* DRLogLevelText(DRLogLevel level) {
@@ -24,6 +25,7 @@ static inline NSString* DRLogLevelText(DRLogLevel level) {
 		case DRLogWarning: return @"WARN";
 		case DRLogInfo: return @"INFO";
 		case DRLogDebug: return @"DEBUG";
+		case DRLogTrace: return @"TRACE";
 			
 		default: return nil;
 	}
@@ -34,6 +36,7 @@ static inline NSString* DRLogLevelText(DRLogLevel level) {
 #define LOG_WARN(...)  LOG_MESSAGE(DRLogWarning, __VA_ARGS__)
 #define LOG_INFO(...)  LOG_MESSAGE(DRLogInfo, __VA_ARGS__)
 #define LOG_DEBUG(...) LOG_MESSAGE(DRLogDebug, __VA_ARGS__)
+#define LOG_TRACE(...) LOG_MESSAGE(DRLogTrace, __VA_ARGS__)
 
 
 #ifdef DEBUG
@@ -46,8 +49,11 @@ static inline NSString* DRLogLevelText(DRLogLevel level) {
 	#define LOG_LINE() LogMarker([NSString stringWithUTF8String:__FUNCTION__])
 
 	#define LOG_MESSAGE(level, ...) \
-		LogMessageF(__FILE__, __LINE__, __FUNCTION__, DRLogLevelText(level), level, __VA_ARGS__); \
-		NSLog(@"%s:\n%@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+		do { \
+			LogMessageF(__FILE__, __LINE__, __FUNCTION__, DRLogLevelText(level), level, __VA_ARGS__); \
+			NSLog(@"%s:\n%@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__]); \
+		} while(0)
+
 #else
 	#define DO_NOTHING do {} while(0)
 
