@@ -16,4 +16,6 @@ int main(int argc, char *argv[])
 	LOG_SETUP();
 	
 	return NSApplicationMain(argc, (const char **)argv);
+	
+	LOG_FLUSH();
 }
