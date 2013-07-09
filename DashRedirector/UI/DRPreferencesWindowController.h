@@ -19,9 +19,12 @@
 @property (nonatomic, retain) NSMutableArray *browsers;
 @property (nonatomic, retain) NSMutableIndexSet *selectedBrowserIndexes;
 
+@property (nonatomic, retain) IBOutlet NSView *lastComponentBeforeDefaultBrowserScrollView;
+
+@property (nonatomic, retain) IBOutlet NSButton *dashIsDefaultCheckbox;
+
 @property (nonatomic, retain) IBOutlet NSArrayController *browserArrayController;
 
-@property (nonatomic, retain) IBOutlet NSCollectionView *defaultBrowserCollectionView;
 @property (nonatomic, retain) IBOutlet NSScrollView *defaultBrowserScrollView;
 @property (nonatomic, retain) IBOutlet DRLockableClipView *defaultBrowserClipView;
 @property (nonatomic, retain) IBOutlet NSTextField *defaultBrowserCollectionViewLabel;

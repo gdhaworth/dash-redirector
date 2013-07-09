@@ -14,6 +14,9 @@
 @interface DRPreferencesWindowController () {
 	BOOL registered;
 	
+	NSRect *originalWindowFrame;
+	BOOL fallbackBrowserComponentsHidden;
+	
 	unsigned dashRedirectorDefaultBrowserHandleDispatchCount;
 }
 
@@ -27,13 +30,16 @@
 @implementation DRPreferencesWindowController
 
 @synthesize browsers, browserArrayController;
-@synthesize defaultBrowserCollectionView, defaultBrowserScrollView, defaultBrowserClipView, defaultBrowserCollectionViewLabel;
+@synthesize lastComponentBeforeDefaultBrowserScrollView;
+@synthesize dashIsDefaultCheckbox;
+@synthesize defaultBrowserScrollView, defaultBrowserClipView, defaultBrowserCollectionViewLabel;
 @synthesize selectedBrowserIndexes;
 
 - (id) init {
 	self = [super initWithWindowNibName:@"Preferences"];
 	if(self) {
 		registered = NO;
+		fallbackBrowserComponentsHidden = NO;
 		
 		dashRedirectorDefaultBrowserHandleDispatchCount = 0;
 		self.browsers = [NSMutableArray array];
@@ -81,8 +87,11 @@
 	[DRBrowserInfoTasks readBrowsers:^(NSSet *browserInfos) {
 		self.browsers = [NSMutableArray arrayWithArray:[browserInfos allObjects]];
 		
-		[self updateDefaultBrowserViewState:self.dashRedirectorDefaultBrowser];
+		if(self.dashRedirectorDefaultBrowser)
+			[self setSelectedDefaultBrowser:self.persistedFallbackBrowser];
 	}];
+	
+	[self updateDefaultBrowserViewState:self.dashRedirectorDefaultBrowser animate:NO];
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -113,7 +122,7 @@
 		} else if([DRBrowserInfoTasks isCurrentApp:browserInfo])
 			[DRBrowserInfoTasks setSystemDefaultBrowser:self.persistedFallbackBrowser];
 		
-		[self updateDefaultBrowserViewState:drIsDefault];
+		[self updateDefaultBrowserViewState:drIsDefault animate:YES];
 	}];
 }
 
@@ -128,18 +137,78 @@
 	self.persistedFallbackBrowser = selectedDefaultBrowser;
 }
 
-- (void) updateDefaultBrowserViewState:(BOOL)drIsDefault {
+- (void) updateDefaultBrowserViewState:(BOOL)drIsDefault animate:(BOOL)animate {
 	LOG_TRACE(@"dash redirector is default: %d", drIsDefault);
 	
-	[self.defaultBrowserCollectionView setSelectable:drIsDefault];
-	if(drIsDefault)
-		self.selectedDefaultBrowser = self.persistedFallbackBrowser;
+	if(!originalWindowFrame) {
+		originalWindowFrame = malloc(sizeof(NSRect));
+		*originalWindowFrame = self.window.frame;
+	}
 	
-	[self.defaultBrowserScrollView.verticalScroller setEnabled:drIsDefault];
+	if(animate) {
+		if(drIsDefault)
+			[self animateShowFallbackBrowserComponents];
+		else
+			[self animateHideFallbackBrowserComponents];
+	} else if(!drIsDefault)
+		[self hideFallbackBrowserComponents];
+}
+
+- (void) animateShowFallbackBrowserComponents {
+	if(!fallbackBrowserComponentsHidden)
+		return;
 	
-	self.defaultBrowserClipView.scrollLocked = !drIsDefault;
-	self.defaultBrowserCollectionViewLabel.textColor =
-			drIsDefault ? [NSColor controlTextColor] : [NSColor disabledControlTextColor];
+	[self.dashIsDefaultCheckbox setEnabled:NO];
+	[self.defaultBrowserScrollView setHidden:NO];
+	[self.defaultBrowserCollectionViewLabel setHidden:NO];
+	fallbackBrowserComponentsHidden = NO;
+	
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+		[self.window.animator setFrame:*originalWindowFrame display:NO];
+		[self.defaultBrowserScrollView.animator setAlphaValue:1.0f];
+		[self.defaultBrowserCollectionViewLabel.animator setAlphaValue:1.0f];
+	} completionHandler:^{
+		[self.dashIsDefaultCheckbox setEnabled:YES];
+	}];
+}
+
+- (void) animateHideFallbackBrowserComponents {
+	if(fallbackBrowserComponentsHidden)
+		return;
+	
+	[self.dashIsDefaultCheckbox setEnabled:NO];
+	fallbackBrowserComponentsHidden = YES;
+	
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+		[self.window.animator setFrame:[self calculateWindowFrameForHiddenFallbackBrowserComponents] display:NO];
+		[self.defaultBrowserScrollView.animator setAlphaValue:0.0f];
+		[self.defaultBrowserCollectionViewLabel.animator setAlphaValue:0.0f];
+	} completionHandler:^{
+		[self.dashIsDefaultCheckbox setEnabled:YES];
+		[self.defaultBrowserScrollView setHidden:YES];
+		[self.defaultBrowserCollectionViewLabel setHidden:YES];
+	}];
+}
+
+- (void) hideFallbackBrowserComponents {
+	fallbackBrowserComponentsHidden = YES;
+	
+	[self.window setFrame:[self calculateWindowFrameForHiddenFallbackBrowserComponents] display:YES];
+	[self.defaultBrowserScrollView setHidden:YES];
+	[self.defaultBrowserCollectionViewLabel setHidden:YES];
+}
+
+- (NSRect) calculateWindowFrameForHiddenFallbackBrowserComponents {
+	NSRect windowFrame = self.window.frame;
+	
+	NSRect scrollFrame = self.defaultBrowserScrollView.frame;
+	NSRect lastFrame = self.lastComponentBeforeDefaultBrowserScrollView.frame;
+	
+	CGFloat shrink = lastFrame.origin.y - scrollFrame.origin.y;
+	NSRect newWindowFrame = {
+		{ windowFrame.origin.x, windowFrame.origin.y + shrink },
+		{ windowFrame.size.width, windowFrame.size.height - shrink } };
+	return newWindowFrame;
 }
 
 - (void) insertObject:(DRBrowserInfo *)browser inBrowsersAtIndex:(NSUInteger)index {
@@ -178,12 +247,15 @@
 
 - (void) dealloc {
 	self.browsers = nil;
+	self.lastComponentBeforeDefaultBrowserScrollView = nil;
 	self.browserArrayController = nil;
-	self.defaultBrowserCollectionView = nil;
 	self.defaultBrowserScrollView = nil;
 	self.defaultBrowserClipView = nil;
 	self.defaultBrowserCollectionViewLabel = nil;
 	self.selectedBrowserIndexes = nil;
+	
+	if(originalWindowFrame)
+		free(originalWindowFrame);
 	
 	[super dealloc];
 }
