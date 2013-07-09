@@ -7,31 +7,257 @@
 //
 
 #import "DRPreferencesWindowController.h"
-#import "DRAppDelegate.h"
+#import "DRBrowserInfoTasks.h"
+#import "DRBrowserInfo.h"
+
+
+@interface DRPreferencesWindowController () {
+	BOOL registered;
+	
+	NSRect *originalWindowFrame;
+	BOOL fallbackBrowserComponentsHidden;
+	
+	unsigned dashRedirectorDefaultBrowserHandleDispatchCount;
+}
+
+@property (nonatomic, readonly) BOOL dashRedirectorDefaultBrowser;
+@property (nonatomic, assign) DRBrowserInfo *selectedDefaultBrowser;
+@property (nonatomic, assign) DRBrowserInfo *persistedFallbackBrowser;
+
+@end
 
 
 @implementation DRPreferencesWindowController
 
+@synthesize browsers, browserArrayController;
+@synthesize lastComponentBeforeDefaultBrowserScrollView;
+@synthesize dashIsDefaultCheckbox;
+@synthesize defaultBrowserScrollView, defaultBrowserClipView, defaultBrowserCollectionViewLabel;
+@synthesize selectedBrowserIndexes;
+
 - (id) init {
-	return [super initWithWindowNibName:@"Preferences"];
+	self = [super initWithWindowNibName:@"Preferences"];
+	if(self) {
+		registered = NO;
+		fallbackBrowserComponentsHidden = NO;
+		
+		dashRedirectorDefaultBrowserHandleDispatchCount = 0;
+		self.browsers = [NSMutableArray array];
+		self.selectedBrowserIndexes = [NSMutableIndexSet indexSet];
+	}
+	
+	return self;
 }
 
 - (void) awakeFromNib {
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(userDefaultsChanged:)
-												 name:NSUserDefaultsDidChangeNotification
-											   object:nil];
+	[self setUpLockableClipView];
+	
+	if(!registered) {
+		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+																  forKeyPath:@"values.dashRedirectorIsDefaultBrowser"
+																	 options:NSKeyValueObservingOptionNew
+																	 context:@selector(handleDashRedirectorDefaultBrowserChange:)];
+		[self addObserver:self
+			   forKeyPath:@"selectedBrowserIndexes"
+				  options:NSKeyValueObservingOptionNew
+				  context:@selector(handleSelectedDefaultBrowserChange:)];
+		
+		registered = YES;
+	}
+}
+
+// TODO move into LockableClipView
+- (void) setUpLockableClipView {
+	if(self.defaultBrowserClipView == self.defaultBrowserScrollView.contentView)
+		return;
+	
+	self.defaultBrowserClipView.documentView = self.defaultBrowserScrollView.contentView.documentView;
+	self.defaultBrowserClipView.copiesOnScroll = self.defaultBrowserScrollView.contentView.copiesOnScroll;
+	self.defaultBrowserClipView.documentCursor = self.defaultBrowserScrollView.contentView.documentCursor;
+	self.defaultBrowserClipView.drawsBackground = self.defaultBrowserScrollView.contentView.drawsBackground;
+	self.defaultBrowserScrollView.contentView = self.defaultBrowserClipView;
 }
 
 - (void) windowDidLoad {
 	[super windowDidLoad];
 	
 	[self.window setExcludedFromWindowsMenu:YES];
+	self.window.hidesOnDeactivate = NO;
+	
+	[DRBrowserInfoTasks readBrowsers:^(NSSet *browserInfos) {
+		self.browsers = [NSMutableArray arrayWithArray:[browserInfos allObjects]];
+		
+		if(self.dashRedirectorDefaultBrowser)
+			[self setSelectedDefaultBrowser:self.persistedFallbackBrowser];
+	}];
+	
+	[self updateDefaultBrowserViewState:self.dashRedirectorDefaultBrowser animate:NO];
 }
 
-- (void) userDefaultsChanged:(NSNotification*)notification {
-	// TEMP
-	LOG_INFO(@"notification: %@", [notification description]);
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	id newValue = [object valueForKeyPath:keyPath];
+	SEL selector = (SEL)context;
+	[self performSelector:selector withObject:newValue];
+}
+
+- (void) handleDashRedirectorDefaultBrowserChange:(CFBooleanRef)newValue {
+	Boolean drIsDefault = CFBooleanGetValue((CFBooleanRef) newValue);
+	
+	unsigned dispatchCount = ++dashRedirectorDefaultBrowserHandleDispatchCount;
+	LOG_TRACE(@"dispatchCount: %d", dispatchCount);
+	[DRBrowserInfoTasks readDefaultBrowser:^(DRBrowserInfo *browserInfo) {
+		LOG_DEBUG(@"current default system browser: %@", browserInfo);
+		
+		if(dispatchCount != dashRedirectorDefaultBrowserHandleDispatchCount) {
+			LOG_DEBUG(@"dashRedirectorDefaultBrowser change handler is stale (%d), skipping execution",
+					  dashRedirectorDefaultBrowserHandleDispatchCount);
+			return;
+		}
+		
+		if(drIsDefault) {
+			if(![DRBrowserInfoTasks isCurrentApp:browserInfo]) {
+				self.persistedFallbackBrowser = browserInfo;
+				[DRBrowserInfoTasks setSystemDefaultBrowser:[DRBrowserInfoTasks currentApp]];
+			}
+		} else if([DRBrowserInfoTasks isCurrentApp:browserInfo])
+			[DRBrowserInfoTasks setSystemDefaultBrowser:self.persistedFallbackBrowser];
+		
+		[self updateDefaultBrowserViewState:drIsDefault animate:YES];
+	}];
+}
+
+- (void) handleSelectedDefaultBrowserChange:(id)newValue {
+	DRBrowserInfo *selectedDefaultBrowser = self.selectedDefaultBrowser;
+	
+	LOG_TRACE(@"selectedBrowser: %@", selectedDefaultBrowser);
+	
+	if(!selectedDefaultBrowser)
+		return;
+	
+	self.persistedFallbackBrowser = selectedDefaultBrowser;
+}
+
+- (void) updateDefaultBrowserViewState:(BOOL)drIsDefault animate:(BOOL)animate {
+	LOG_TRACE(@"dash redirector is default: %d", drIsDefault);
+	
+	if(!originalWindowFrame) {
+		originalWindowFrame = malloc(sizeof(NSRect));
+		*originalWindowFrame = self.window.frame;
+	}
+	
+	if(animate) {
+		if(drIsDefault)
+			[self animateShowFallbackBrowserComponents];
+		else
+			[self animateHideFallbackBrowserComponents];
+	} else if(!drIsDefault)
+		[self hideFallbackBrowserComponents];
+}
+
+- (void) animateShowFallbackBrowserComponents {
+	if(!fallbackBrowserComponentsHidden)
+		return;
+	
+	[self.dashIsDefaultCheckbox setEnabled:NO];
+	[self.defaultBrowserScrollView setHidden:NO];
+	[self.defaultBrowserCollectionViewLabel setHidden:NO];
+	fallbackBrowserComponentsHidden = NO;
+	
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+		[self.window.animator setFrame:*originalWindowFrame display:NO];
+		[self.defaultBrowserScrollView.animator setAlphaValue:1.0f];
+		[self.defaultBrowserCollectionViewLabel.animator setAlphaValue:1.0f];
+	} completionHandler:^{
+		[self.dashIsDefaultCheckbox setEnabled:YES];
+	}];
+}
+
+- (void) animateHideFallbackBrowserComponents {
+	if(fallbackBrowserComponentsHidden)
+		return;
+	
+	[self.dashIsDefaultCheckbox setEnabled:NO];
+	fallbackBrowserComponentsHidden = YES;
+	
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+		[self.window.animator setFrame:[self calculateWindowFrameForHiddenFallbackBrowserComponents] display:NO];
+		[self.defaultBrowserScrollView.animator setAlphaValue:0.0f];
+		[self.defaultBrowserCollectionViewLabel.animator setAlphaValue:0.0f];
+	} completionHandler:^{
+		[self.dashIsDefaultCheckbox setEnabled:YES];
+		[self.defaultBrowserScrollView setHidden:YES];
+		[self.defaultBrowserCollectionViewLabel setHidden:YES];
+	}];
+}
+
+- (void) hideFallbackBrowserComponents {
+	fallbackBrowserComponentsHidden = YES;
+	
+	[self.window setFrame:[self calculateWindowFrameForHiddenFallbackBrowserComponents] display:YES];
+	[self.defaultBrowserScrollView setHidden:YES];
+	[self.defaultBrowserCollectionViewLabel setHidden:YES];
+}
+
+- (NSRect) calculateWindowFrameForHiddenFallbackBrowserComponents {
+	NSRect windowFrame = self.window.frame;
+	
+	NSRect scrollFrame = self.defaultBrowserScrollView.frame;
+	NSRect lastFrame = self.lastComponentBeforeDefaultBrowserScrollView.frame;
+	
+	CGFloat shrink = lastFrame.origin.y - scrollFrame.origin.y;
+	NSRect newWindowFrame = {
+		{ windowFrame.origin.x, windowFrame.origin.y + shrink },
+		{ windowFrame.size.width, windowFrame.size.height - shrink } };
+	return newWindowFrame;
+}
+
+- (void) insertObject:(DRBrowserInfo *)browser inBrowsersAtIndex:(NSUInteger)index {
+    [browsers insertObject:browser atIndex:index];
+}
+
+- (void) removeObjectFromBrowsersAtIndex:(NSUInteger)index {
+    [browsers removeObjectAtIndex:index];
+}
+
+- (BOOL) dashRedirectorDefaultBrowser {
+	return DRDashRedirectorIsDefaultBrowser();
+}
+
+- (DRBrowserInfo*) selectedDefaultBrowser {
+	NSArray *selectedObjects = [self.browserArrayController selectedObjects];
+	if([selectedObjects count] == 0)
+		return nil;
+	return [selectedObjects objectAtIndex:0];
+}
+
+- (void) setSelectedDefaultBrowser:(DRBrowserInfo *)browser {
+	LOG_DEBUG(@"new selectedDefaultBrowser: %@", browser);
+	
+	[self.browserArrayController setSelectedObjects:[NSArray arrayWithObject:browser]];
+}
+
+- (DRBrowserInfo*) persistedFallbackBrowser {
+	return DRPersistedFallbackBrowser();
+}
+
+- (void) setPersistedFallbackBrowser:(DRBrowserInfo *)browser {
+	LOG_DEBUG(@"new persistedFallbackBrowser: %@", browser);
+	DRSetPersistedFallbackBrowser(browser);
+}
+
+- (void) dealloc {
+	self.browsers = nil;
+	self.lastComponentBeforeDefaultBrowserScrollView = nil;
+	self.browserArrayController = nil;
+	self.defaultBrowserScrollView = nil;
+	self.defaultBrowserClipView = nil;
+	self.defaultBrowserCollectionViewLabel = nil;
+	self.selectedBrowserIndexes = nil;
+	
+	if(originalWindowFrame)
+		free(originalWindowFrame);
+	
+	[super dealloc];
 }
 
 @end

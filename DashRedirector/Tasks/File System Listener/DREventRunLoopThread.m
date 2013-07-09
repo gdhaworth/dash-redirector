@@ -80,9 +80,6 @@ withReleaseCallback:(DRReleaseCallback)release {
 		watchedPathData.watchedVersion = watchedPathsVersion;
 		[runCondition unlock];
 		
-#if DEBUG
-		LOG_DEBUG(@"Listening for FS events on paths: %@", [watchedPaths description]);
-#endif
 		
 		[self createEventStreamAndListen:&watchedPathData];
 		

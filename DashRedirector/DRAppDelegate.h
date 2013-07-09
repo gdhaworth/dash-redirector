@@ -15,6 +15,8 @@
 
 @interface DRAppDelegate : NSObject <NSApplicationDelegate>
 
+- (IBAction) openPreferencesPanel:(id)sender;
+
 @property (nonatomic, readonly) NSOperationQueue *workQueue;
 @property (nonatomic, readonly) DRDocsetIndexer *docsetIndexer;
 

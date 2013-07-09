@@ -10,27 +10,32 @@
 #import "DRDocsetIndexer.h"
 #import "DRMemberInfo.h"
 #import "DRTypeInfo.h"
+#import "DRBrowserInfoTasks.h"
 
 
 @interface DRGetUrlListener () {
 	DRDocsetIndexer *docsetIndexer;
+	
+	CFAbsoluteTime lastGetUrlEvent;
+	CFAbsoluteTime lastApplicationReadyToLaunchDashUrl;
 }
 
-@property (nonatomic, retain) NSURL *lastComputedUrl;
-@property (nonatomic, retain) NSDate *lastGetUrlEvent;
-@property (nonatomic, retain) NSDate *lastApplicationReadyToLaunchDashUrl;
+@property (nonatomic, retain) NSURL *lastGetUrl;
 
 @end
 
 
 @implementation DRGetUrlListener
 
-@synthesize lastComputedUrl, lastGetUrlEvent, lastApplicationReadyToLaunchDashUrl;
+@synthesize lastGetUrl;
 
 - (id) initWithDocsetIndexer:(DRDocsetIndexer*)indexer {
 	self = [super init];
 	if(self) {
 		docsetIndexer = [indexer retain];
+		
+		lastGetUrlEvent = -1;
+		lastApplicationReadyToLaunchDashUrl = -1;
 	}
 	return self;
 }
@@ -45,61 +50,65 @@
 - (void) handleGetURLEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent {
 	NSURL *url = [NSURL URLWithString:[[event paramDescriptorForKeyword:keyDirectObject] stringValue]];
 	
-	// TEMP
-	LOG_DEBUG(@"url: '%@'  path: '%@'  fragment: '%@'", url, [[url path] stringByDeletingPathExtension],
+	LOG_TRACE(@"url: '%@'  path: '%@'  fragment: '%@'", url, [[url path] stringByDeletingPathExtension],
 		  [[url fragment] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
 	
-	[self calculateRedirectAndOpenUrl:url];
-}
-
-- (void) applicationReadyToLaunchDashUrl {
-	ASSERT_MAIN_THREAD();
-	
-	self.lastApplicationReadyToLaunchDashUrl = [NSDate date];
-	[self launchLastComputedUrlIfReady];
-}
-
-- (void) calculateRedirectAndOpenUrl:(NSURL*)url {
 	DRForceMainThread(^void{
-		self.lastComputedUrl = [self computeUrlToOpen:url];
-		self.lastGetUrlEvent = [NSDate date];
+		self.lastGetUrl = url;
+		lastGetUrlEvent = CFAbsoluteTimeGetCurrent();
 		
 		[self launchLastComputedUrlIfReady];
 	});
 }
 
+- (void) applicationReadyToLaunchDashUrl {
+	ASSERT_MAIN_THREAD();
+	
+	lastApplicationReadyToLaunchDashUrl = CFAbsoluteTimeGetCurrent();
+	[self launchLastComputedUrlIfReady];
+}
+
 // TODO: get out of configurable settings
-#define kDRMaxEventDelay 0.100
+#define kDRMaxEventDelay 0.500
 
 - (void) launchLastComputedUrlIfReady {
 	ASSERT_MAIN_THREAD();
 	
 	BOOL shouldLaunch = NO;
-	if(self.lastGetUrlEvent && self.lastApplicationReadyToLaunchDashUrl) {
-		double interval = fabs([self.lastGetUrlEvent timeIntervalSinceDate:self.lastApplicationReadyToLaunchDashUrl]);
-		shouldLaunch = interval < kDRMaxEventDelay;
+	if(lastGetUrlEvent > 0 && lastApplicationReadyToLaunchDashUrl > 0) {
+		double interval = fabs(lastGetUrlEvent - lastApplicationReadyToLaunchDashUrl);
+		shouldLaunch = (interval <= kDRMaxEventDelay);
+		LOG_TRACE(@"shouldLaunch: %d  interval: %f", shouldLaunch, interval);
 	}
 	
 	if(shouldLaunch) {
 		// Don't clear lastGetUrlEvent so if the application accidentally becomes active again we re-launch Dash
-		self.lastApplicationReadyToLaunchDashUrl = nil;
+		lastApplicationReadyToLaunchDashUrl = -1;
 		
-		LOG_DEBUG(@"launching dashUrl: %@", self.lastComputedUrl);
-		LSOpenCFURLRef((CFURLRef)self.lastComputedUrl, NULL);
+		BOOL dashUrl;
+		NSURL *launchUrl = [self computeUrlToOpen:self.lastGetUrl isDashUrl:&dashUrl];
+		LOG_DEBUG(@"launching url: %@", launchUrl);
+		
+		NSURL *browser = nil;
+		if(!dashUrl && DRDashRedirectorIsDefaultBrowser())
+			browser = DRPersistedFallbackBrowserUrl();
+		[self launchUrl:launchUrl browser:browser];
 	} else
-		LOG_DEBUG(@"Skipped launching dashUrl; lastGetUrlEvent: %@  lastApplicationReadyToLaunchDashUrl: %@",
-				  self.lastGetUrlEvent, self.lastApplicationReadyToLaunchDashUrl);
+		LOG_TRACE(@"Skipped launching dashUrl; lastGetUrlEvent: %f  lastApplicationReadyToLaunchDashUrl: %f",
+				  lastGetUrlEvent, lastApplicationReadyToLaunchDashUrl);
 }
 
-- (NSURL*) computeUrlToOpen:(NSURL*)requestUrl {
+- (NSURL*) computeUrlToOpen:(NSURL*)requestUrl isDashUrl:(BOOL*)isDashUrl {
 	DRTypeInfo *foundTypeInfo = [docsetIndexer searchUrl:requestUrl];
 	
-	// TEMP
-	LOG_DEBUG(@"%@", foundTypeInfo);
+	LOG_TRACE(@"foundTypeInfo: %@", foundTypeInfo);
 	
-	if(!foundTypeInfo)
+	if(!foundTypeInfo) {
+		*isDashUrl = NO;
 		return requestUrl;
+	}
 	
+	*isDashUrl = YES;
 	NSString *dashUrl = [self computeDashUrl:requestUrl forType:foundTypeInfo];
 	return [NSURL URLWithString:[dashUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
@@ -126,12 +135,20 @@ static inline NSString* DashUrlForMemberInType(DRMemberInfo *member, DRTypeInfo 
 	return [NSString stringWithFormat:@"dash://%@:%@ %@", type.docsetDescriptor.keyword, type.name, member.name];
 }
 
+- (void) launchUrl:(NSURL*)url browser:(NSURL*)browser {
+	LSLaunchURLSpec launchSpec;
+	launchSpec.appURL = (CFURLRef) browser;
+	launchSpec.itemURLs = (CFArrayRef) [NSArray arrayWithObject:url];
+	launchSpec.passThruParams = NULL;
+	launchSpec.launchFlags = kLSLaunchDefaults;
+	launchSpec.asyncRefCon = NULL;
+	LSOpenFromURLSpec(&launchSpec, NULL);
+}
+
 - (void) dealloc {
 	[docsetIndexer release];
 	
-	self.lastComputedUrl = nil;
-	self.lastGetUrlEvent = nil;
-	self.lastApplicationReadyToLaunchDashUrl = nil;
+	self.lastGetUrl = nil;
 	
 	[super dealloc];
 }

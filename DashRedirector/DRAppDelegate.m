@@ -10,8 +10,7 @@
 #import "DRStatusItemDelegate.h"
 #import "DRGetUrlListener.h"
 #import "DRDocsetIndexer.h"
-#import "DRTypeInfo.h"
-#import "DRMemberInfo.h"
+#import "DRPreferencesWindowController.h"
 
 
 @interface DRAppDelegate () {	
@@ -42,6 +41,16 @@
 	LOG_LINE();
 	
 	[getUrlListener applicationReadyToLaunchDashUrl];
+}
+
+
+#pragma mark - Actions
+
+- (IBAction) openPreferencesPanel:(id)sender {
+	LOG_LINE();
+	
+	[self.preferencesWindowController showWindow:self];
+	[NSApp activateIgnoringOtherApps:YES];
 }
 
 
