@@ -113,7 +113,7 @@
 											<string key="NSFrameSize">{398, 298}</string>
 											<reference key="NSSuperview" ref="220020609"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="914178403"/>
+											<reference key="NSNextKeyView" ref="1041741502"/>
 											<string key="NSReuseIdentifierKey">_NS:80</string>
 											<string key="NSMinGridSize">{0, 0}</string>
 											<string key="NSMaxGridSize">{0, 0}</string>
@@ -147,7 +147,6 @@
 									<string key="NSFrame">{{384, 1}, {15, 298}}</string>
 									<reference key="NSSuperview" ref="36830144"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:82</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="36830144"/>
@@ -173,7 +172,7 @@
 							<string key="NSFrame">{{20, 20}, {400, 300}}</string>
 							<reference key="NSSuperview" ref="50395944"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1041741502"/>
+							<reference key="NSNextKeyView" ref="220020609"/>
 							<string key="NSReuseIdentifierKey">_NS:76</string>
 							<int key="NSsFlags">199186</int>
 							<reference key="NSVScroller" ref="914178403"/>
@@ -250,7 +249,7 @@
 					<reference key="NSNextKeyView" ref="582539136"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">NO</bool>
 			</object>
@@ -280,7 +279,7 @@
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="NSImageView" id="92271207">
 										<reference key="NSNextResponder" ref="775619524"/>
-										<int key="NSvFlags">306</int>
+										<int key="NSvFlags">282</int>
 										<set class="NSMutableSet" key="NSDragTypes">
 											<string>Apple PDF pasteboard type</string>
 											<string>Apple PICT pasteboard type</string>
@@ -309,11 +308,10 @@
 									</object>
 									<object class="NSTextField" id="783013913">
 										<reference key="NSNextResponder" ref="775619524"/>
-										<int key="NSvFlags">266</int>
+										<int key="NSvFlags">290</int>
 										<string key="NSFrame">{{4, 2}, {107, 17}}</string>
 										<reference key="NSSuperview" ref="775619524"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSTextFieldCell" key="NSCell" id="323113411">
