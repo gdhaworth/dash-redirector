@@ -26,3 +26,25 @@ typedef void(^DRReadBrowserCallback)(DRBrowserInfo *browserInfo);
 + (DRBrowserInfo*) currentApp;
 
 @end
+
+
+#define kDRDashRedirectorIsDefaultBrowser @"dashRedirectorIsDefaultBrowser"
+#define kDRFallbackBrowser @"fallbackBrowser"
+
+static inline BOOL DRDashRedirectorIsDefaultBrowser(void) {
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kDRDashRedirectorIsDefaultBrowser];
+}
+
+static inline NSURL* DRPersistedFallbackBrowserUrl(void) {
+	return [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:kDRFallbackBrowser]];
+}
+
+static inline DRBrowserInfo* DRPersistedFallbackBrowser(void) {
+	return [DRBrowserInfo browserInfoFromUrl:DRPersistedFallbackBrowserUrl() loadAppIcon:NO];
+}
+
+static inline void DRSetPersistedFallbackBrowser(DRBrowserInfo *browserInfo) {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[browserInfo.url absoluteString] forKey:kDRFallbackBrowser];
+	[defaults synchronize];
+}

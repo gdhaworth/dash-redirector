@@ -239,7 +239,7 @@
 			</object>
 			<object class="NSCollectionViewItem" id="376140936"/>
 			<object class="NSView" id="254794295">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSBox" id="1010523285">
@@ -263,8 +263,6 @@
 										</set>
 										<string key="NSFrame">{{21, 11}, {72, 72}}</string>
 										<reference key="NSSuperview" ref="775619524"/>
-										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="NSEnabled">YES</bool>
 										<object class="NSImageCell" key="NSCell" id="1057994928">
@@ -284,7 +282,6 @@
 										<int key="NSvFlags">266</int>
 										<string key="NSFrame">{{4, 93}, {107, 17}}</string>
 										<reference key="NSSuperview" ref="775619524"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="92271207"/>
 										<string key="NSReuseIdentifierKey">_NS:1535</string>
 										<bool key="NSEnabled">YES</bool>
@@ -303,14 +300,12 @@
 								</array>
 								<string key="NSFrame">{{2, 2}, {115, 115}}</string>
 								<reference key="NSSuperview" ref="1010523285"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="783013913"/>
 								<string key="NSReuseIdentifierKey">_NS:11</string>
 							</object>
 						</array>
 						<string key="NSFrame">{{3, 3}, {119, 119}}</string>
 						<reference key="NSSuperview" ref="254794295"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="775619524"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSOffsets">{0, 0}</string>
@@ -355,8 +350,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{125, 125}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1010523285"/>
 			</object>
 			<object class="NSUserDefaultsController" id="698548683">
@@ -571,15 +564,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.dashRedirectorDefaultBrowser</string>
+						<string key="label">value: values.dashRedirectorIsDefaultBrowser</string>
 						<reference key="source" ref="582539136"/>
 						<reference key="destination" ref="698548683"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="582539136"/>
 							<reference key="NSDestination" ref="698548683"/>
-							<string key="NSLabel">value: values.dashRedirectorDefaultBrowser</string>
+							<string key="NSLabel">value: values.dashRedirectorIsDefaultBrowser</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.dashRedirectorDefaultBrowser</string>
+							<string key="NSKeyPath">values.dashRedirectorIsDefaultBrowser</string>
 							<dictionary key="NSOptions">
 								<boolean value="NO" key="NSAllowsEditingMultipleValuesSelection"/>
 								<boolean value="NO" key="NSConditionallySetsEnabled"/>
@@ -589,7 +582,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">397</int>
+					<int key="connectionID">401</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -787,7 +780,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">400</int>
+			<int key="maxID">401</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

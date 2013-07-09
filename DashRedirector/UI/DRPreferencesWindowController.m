@@ -11,11 +11,9 @@
 #import "DRBrowserInfo.h"
 
 
-#define kDRDashRedirectorDefaultBrowser @"dashRedirectorDefaultBrowser"
-#define kDRFallbackBrowser @"fallbackBrowser"
-
-
 @interface DRPreferencesWindowController () {
+	BOOL registered;
+	
 	unsigned dashRedirectorDefaultBrowserHandleDispatchCount;
 }
 
@@ -35,14 +33,7 @@
 - (id) init {
 	self = [super initWithWindowNibName:@"Preferences"];
 	if(self) {
-		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
-																  forKeyPath:@"values.dashRedirectorDefaultBrowser"
-																	 options:NSKeyValueObservingOptionNew
-																	 context:@selector(handleDashRedirectorDefaultBrowserChange:)];
-		[self addObserver:self
-			   forKeyPath:@"selectedBrowserIndexes"
-				  options:NSKeyValueObservingOptionNew
-				  context:@selector(handleSelectedDefaultBrowserChange:)];
+		registered = NO;
 		
 		dashRedirectorDefaultBrowserHandleDispatchCount = 0;
 		self.browsers = [NSMutableArray array];
@@ -54,6 +45,19 @@
 
 - (void) awakeFromNib {
 	[self setUpLockableClipView];
+	
+	if(!registered) {
+		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+																  forKeyPath:@"values.dashRedirectorIsDefaultBrowser"
+																	 options:NSKeyValueObservingOptionNew
+																	 context:@selector(handleDashRedirectorDefaultBrowserChange:)];
+		[self addObserver:self
+			   forKeyPath:@"selectedBrowserIndexes"
+				  options:NSKeyValueObservingOptionNew
+				  context:@selector(handleSelectedDefaultBrowserChange:)];
+		
+		registered = YES;
+	}
 }
 
 // TODO move into LockableClipView
@@ -73,7 +77,6 @@
 	
 	[self.window setExcludedFromWindowsMenu:YES];
 	self.window.hidesOnDeactivate = NO;
-	[(NSPanel*)self.window setFloatingPanel:YES];
 	
 	[DRBrowserInfoTasks readBrowsers:^(NSSet *browserInfos) {
 		self.browsers = [NSMutableArray arrayWithArray:[browserInfos allObjects]];
@@ -107,22 +110,17 @@
 				self.persistedFallbackBrowser = browserInfo;
 				[DRBrowserInfoTasks setSystemDefaultBrowser:[DRBrowserInfoTasks currentApp]];
 			}
-			
-			[self updateDefaultBrowserViewState:drIsDefault];
-		} else {
-			if([DRBrowserInfoTasks isCurrentApp:browserInfo])
-				[DRBrowserInfoTasks setSystemDefaultBrowser:self.persistedFallbackBrowser];
-			
-			[self updateDefaultBrowserViewState:drIsDefault];
-		}
+		} else if([DRBrowserInfoTasks isCurrentApp:browserInfo])
+			[DRBrowserInfoTasks setSystemDefaultBrowser:self.persistedFallbackBrowser];
+		
+		[self updateDefaultBrowserViewState:drIsDefault];
 	}];
 }
 
 - (void) handleSelectedDefaultBrowserChange:(id)newValue {
 	DRBrowserInfo *selectedDefaultBrowser = self.selectedDefaultBrowser;
 	
-	// TEMP
-	LOG_DEBUG(@"selectedBrowser: %@", selectedDefaultBrowser);
+	LOG_TRACE(@"selectedBrowser: %@", selectedDefaultBrowser);
 	
 	if(!selectedDefaultBrowser)
 		return;
@@ -131,6 +129,8 @@
 }
 
 - (void) updateDefaultBrowserViewState:(BOOL)drIsDefault {
+	LOG_TRACE(@"dash redirector is default: %d", drIsDefault);
+	
 	[self.defaultBrowserCollectionView setSelectable:drIsDefault];
 	if(drIsDefault)
 		self.selectedDefaultBrowser = self.persistedFallbackBrowser;
@@ -151,7 +151,7 @@
 }
 
 - (BOOL) dashRedirectorDefaultBrowser {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:kDRDashRedirectorDefaultBrowser];
+	return DRDashRedirectorIsDefaultBrowser();
 }
 
 - (DRBrowserInfo*) selectedDefaultBrowser {
@@ -168,16 +168,12 @@
 }
 
 - (DRBrowserInfo*) persistedFallbackBrowser {
-	NSURL *browserUrl = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:kDRFallbackBrowser]];
-	return [DRBrowserInfo browserInfoFromUrl:browserUrl loadAppIcon:NO];
+	return DRPersistedFallbackBrowser();
 }
 
 - (void) setPersistedFallbackBrowser:(DRBrowserInfo *)browser {
 	LOG_DEBUG(@"new persistedFallbackBrowser: %@", browser);
-	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[browser.url absoluteString] forKey:kDRFallbackBrowser];
-	[defaults synchronize];
+	DRSetPersistedFallbackBrowser(browser);
 }
 
 - (void) dealloc {
