@@ -51,21 +51,35 @@
 	} passResultToForeground:callback];
 }
 
-+ (void) callInBackground:(id(^)(void))background passResultToForeground:(void(^)(id))foreground {
-	LOG_TRACE(@"callInBackground: main -> background");
++ (void) callInBackground:(id<NSObject>(^)(void))background passResultToForeground:(void(^)(id<NSObject>))foreground {
+	ASSERT_MAIN_THREAD();
 	
-	[((DRAppDelegate*)[NSApp delegate]).workQueue addOperation:[NSBlockOperation blockOperationWithBlock:^{
+	static NSOperation *lastOperation = nil;
+	__block id<NSObject> result;
+	
+	NSOperation *workBlock = [NSBlockOperation blockOperationWithBlock:^{
 		LOG_TRACE(@"callInBackground: background start");
 		
-		id result = background();
-		if(foreground) {
-			LOG_TRACE(@"callInBackground: background -> main");
-			[[NSOperationQueue mainQueue] addOperation:[NSBlockOperation blockOperationWithBlock:^{
-				LOG_TRACE(@"callInBackground: main start");
-				foreground(result);
-			}]];
-		}
-	}]];
+		result = [background() retain];
+	}];
+	if(lastOperation)
+		[workBlock addDependency:lastOperation];
+	
+	[lastOperation release];
+	if(foreground) {
+		NSOperation *callbackOp = [NSBlockOperation blockOperationWithBlock:^{
+			LOG_TRACE(@"callInBackground: main start");
+			foreground(result);
+			[result release];
+		}];
+		[callbackOp addDependency:workBlock];
+		[[NSOperationQueue mainQueue] addOperation:callbackOp];
+		lastOperation = [callbackOp retain];
+	} else
+		lastOperation = [workBlock retain];
+	
+	LOG_TRACE(@"callInBackground: main -> background");
+	[((DRAppDelegate*)[NSApp delegate]).workQueue addOperation:workBlock];
 }
 
 + (void) setSystemDefaultBrowser:(DRBrowserInfo*)browser {

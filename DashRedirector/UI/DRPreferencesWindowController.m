@@ -12,7 +12,7 @@
 
 
 @interface DRPreferencesWindowController () {
-	BOOL registered;
+	BOOL registeredAsObserver;
 	
 	NSRect *originalWindowFrame;
 	BOOL fallbackBrowserComponentsHidden;
@@ -32,13 +32,17 @@
 @synthesize browsers, browserArrayController;
 @synthesize lastComponentBeforeDefaultBrowserScrollView;
 @synthesize dashIsDefaultCheckbox;
-@synthesize defaultBrowserScrollView, defaultBrowserClipView, defaultBrowserCollectionViewLabel;
+@synthesize defaultBrowserScrollView, defaultBrowserCollectionViewLabel;
 @synthesize selectedBrowserIndexes;
+
+
+#pragma mark -
+#pragma mark Lifecycle Callbacks
 
 - (id) init {
 	self = [super initWithWindowNibName:@"Preferences"];
 	if(self) {
-		registered = NO;
+		registeredAsObserver = NO;
 		fallbackBrowserComponentsHidden = NO;
 		
 		dashRedirectorDefaultBrowserHandleDispatchCount = 0;
@@ -49,33 +53,22 @@
 	return self;
 }
 
-- (void) awakeFromNib {
-	[self setUpLockableClipView];
+- (void) dealloc {
+	self.browsers = nil;
+	self.lastComponentBeforeDefaultBrowserScrollView = nil;
+	self.browserArrayController = nil;
+	self.defaultBrowserScrollView = nil;
+	self.defaultBrowserCollectionViewLabel = nil;
+	self.selectedBrowserIndexes = nil;
 	
-	if(!registered) {
-		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
-																  forKeyPath:@"values.dashRedirectorIsDefaultBrowser"
-																	 options:NSKeyValueObservingOptionNew
-																	 context:@selector(handleDashRedirectorDefaultBrowserChange:)];
-		[self addObserver:self
-			   forKeyPath:@"selectedBrowserIndexes"
-				  options:NSKeyValueObservingOptionNew
-				  context:@selector(handleSelectedDefaultBrowserChange:)];
-		
-		registered = YES;
-	}
+	if(originalWindowFrame)
+		free(originalWindowFrame);
+	
+	[super dealloc];
 }
 
-// TODO move into LockableClipView
-- (void) setUpLockableClipView {
-	if(self.defaultBrowserClipView == self.defaultBrowserScrollView.contentView)
-		return;
-	
-	self.defaultBrowserClipView.documentView = self.defaultBrowserScrollView.contentView.documentView;
-	self.defaultBrowserClipView.copiesOnScroll = self.defaultBrowserScrollView.contentView.copiesOnScroll;
-	self.defaultBrowserClipView.documentCursor = self.defaultBrowserScrollView.contentView.documentCursor;
-	self.defaultBrowserClipView.drawsBackground = self.defaultBrowserScrollView.contentView.drawsBackground;
-	self.defaultBrowserScrollView.contentView = self.defaultBrowserClipView;
+- (void) awakeFromNib {
+	[self registerObservations];
 }
 
 - (void) windowDidLoad {
@@ -94,11 +87,33 @@
 	[self updateDefaultBrowserViewState:self.dashRedirectorDefaultBrowser animate:NO];
 }
 
+#pragma mark -
+#pragma mark Observer Registration/Setup
+
+- (void) registerObservations {
+	if(registeredAsObserver)
+		return;
+	
+	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+															  forKeyPath:@"values.dashRedirectorIsDefaultBrowser"
+																 options:NSKeyValueObservingOptionNew
+																 context:@selector(handleDashRedirectorDefaultBrowserChange:)];
+	[self addObserver:self
+		   forKeyPath:@"selectedBrowserIndexes"
+			  options:NSKeyValueObservingOptionNew
+			  context:@selector(handleSelectedDefaultBrowserChange:)];
+	
+	registeredAsObserver = YES;
+}
+
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	id newValue = [object valueForKeyPath:keyPath];
 	SEL selector = (SEL)context;
 	[self performSelector:selector withObject:newValue];
 }
+
+
+#pragma mark Observer Callbacks
 
 - (void) handleDashRedirectorDefaultBrowserChange:(CFBooleanRef)newValue {
 	Boolean drIsDefault = CFBooleanGetValue((CFBooleanRef) newValue);
@@ -136,6 +151,9 @@
 	
 	self.persistedFallbackBrowser = selectedDefaultBrowser;
 }
+
+
+#pragma mark - View Controlling Methods
 
 - (void) updateDefaultBrowserViewState:(BOOL)drIsDefault animate:(BOOL)animate {
 	LOG_TRACE(@"dash redirector is default: %d", drIsDefault);
@@ -211,6 +229,9 @@
 	return newWindowFrame;
 }
 
+
+#pragma mark - Property Accessors/KVC Compliance
+
 - (void) insertObject:(DRBrowserInfo *)browser inBrowsersAtIndex:(NSUInteger)index {
     [browsers insertObject:browser atIndex:index];
 }
@@ -243,21 +264,6 @@
 - (void) setPersistedFallbackBrowser:(DRBrowserInfo *)browser {
 	LOG_DEBUG(@"new persistedFallbackBrowser: %@", browser);
 	DRSetPersistedFallbackBrowser(browser);
-}
-
-- (void) dealloc {
-	self.browsers = nil;
-	self.lastComponentBeforeDefaultBrowserScrollView = nil;
-	self.browserArrayController = nil;
-	self.defaultBrowserScrollView = nil;
-	self.defaultBrowserClipView = nil;
-	self.defaultBrowserCollectionViewLabel = nil;
-	self.selectedBrowserIndexes = nil;
-	
-	if(originalWindowFrame)
-		free(originalWindowFrame);
-	
-	[super dealloc];
 }
 
 @end
