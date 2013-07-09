@@ -11,6 +11,7 @@
 #import "DRGetUrlListener.h"
 #import "DRDocsetIndexer.h"
 #import "DRPreferencesWindowController.h"
+#import "DRBrowserInfoTasks.h"
 
 
 @interface DRAppDelegate () {	
@@ -35,12 +36,30 @@
 	LOG_LINE();
 	
 	[docsetIndexer startIndex];
+	
+	if(DRDashRedirectorIsDefaultBrowser()) {
+		[DRBrowserInfoTasks readDefaultBrowser:^(DRBrowserInfo *browserInfo) {
+			DRBrowserInfo *currentApp = [DRBrowserInfoTasks currentApp];
+			if(![currentApp isEqual:browserInfo]) {
+				DRSetPersistedFallbackBrowser(browserInfo);
+				[DRBrowserInfoTasks setSystemDefaultBrowser:currentApp];
+			}
+		}];
+	}
+		
 }
 
 - (void) applicationDidBecomeActive:(NSNotification*)notification {
 	LOG_LINE();
 	
 	[getUrlListener applicationReadyToLaunchDashUrl];
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+	LOG_LINE();
+	
+	if(DRDashRedirectorIsDefaultBrowser())
+		[DRBrowserInfoTasks setSystemDefaultBrowser:DRPersistedFallbackBrowser()];
 }
 
 
